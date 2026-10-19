@@ -36,15 +36,26 @@ window.SITE_CONFIG = {
     hideAdult: true,
     // 首页展示数量
     animeLimit: 3,
-    gameLimit: 3,
     // 进度条总集数的兜底值（Bangumi 接口偶尔不给总集数）
     fallbackEpisodes: 12,
+  },
+
+  /* ---------- Steam ---------- */
+  steam: {
+    // Steam 自定义 ID（steamcommunity.com/id/ 后面那段）
+    vanity: "jijijitian",
+    profileUrl: "https://steamcommunity.com/id/jijijitian/",
+    // 首页展示最近在玩的数量
+    limit: 3,
+    // 构建脚本生成的数据快照
+    snapshot: "assets/data/steam.json",
   },
 
   /* ---------- 社交链接 ---------- */
   socials: [
     { label: "GitHub", href: "https://github.com/jijijitian", icon: "github" },
     { label: "Bangumi", href: "https://bgm.tv/user/623062", icon: "bangumi" },
+    { label: "Steam", href: "https://steamcommunity.com/id/jijijitian/", icon: "steam" },
     { label: "Email", href: "mailto:jihaotian0627@foxmail.com", icon: "mail" },
     { label: "RSS", href: "feed.xml", icon: "rss" },
   ],

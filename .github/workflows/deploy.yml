@@ -32,6 +32,11 @@ jobs:
         continue-on-error: true
         run: node scripts/sync-bangumi.mjs
 
+      - name: Sync Steam snapshot
+        # 解析 Steam 公开主页；失败时保留仓库里的旧快照
+        continue-on-error: true
+        run: node scripts/sync-steam.mjs
+
       - name: Build site
         run: node scripts/build.mjs
 

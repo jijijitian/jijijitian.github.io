@@ -9,11 +9,12 @@
 | 功能 | 说明 |
 | --- | --- |
 | Bento Grid 首页 | 12 列网格，卡片大小即信息层级，深 / 浅色双主题 |
-| Bangumi 联动 | 实时拉取「在看」的番剧与「在玩」的游戏，含封面、评分、进度条；接口失败自动回退本地快照 |
+| Bangumi 联动 | 实时拉取「在看」的番剧，含封面、评分、进度条；接口失败自动回退本地快照；默认过滤里番/R18 |
+| Steam 联动 | 构建时解析 Steam 公开主页，展示「最近在玩」的游戏、总时长和最近游玩日期 |
 | Markdown 博客 | 在 `posts/` 放一个 `.md`，推送后由 Actions 自动渲染成文章页 |
 | 文章列表页 | 标签筛选、关键词搜索、分页、阅读时长 |
 | 文章阅读页 | 代码高亮 + 一键复制、自动目录、阅读进度条、上一篇/下一篇 |
-| 自动部署 | 推送到 `main` 即发布；也能手动触发，每天定时刷新 Bangumi 快照 |
+| 自动部署 | 推送到 `main` 即发布；也能手动触发，每天定时刷新 Bangumi / Steam 快照 |
 | 附加 | RSS（Atom）、sitemap、robots、404 页面、SEO / Open Graph 标签 |
 
 ## 快速开始（3 步上线）
@@ -84,18 +85,36 @@ bangumi: {
   nickname: "你的昵称",
   live: true,   // true = 浏览器实时请求（数据最新）
   animeLimit: 3,
-  gameLimit: 3,
 }
 ```
 
-首页会立刻显示你标记为「在看」的番剧和「在玩」的游戏。想离线可用或降低接口压力，可以：
+首页会立刻显示你标记为「在看」的番剧。想离线可用或降低接口压力，可以：
 
 ```bash
 npm run bangumi     # 生成 assets/data/bangumi.json 快照
 ```
 
-> 番剧和游戏都取自 Bangumi 的**公开收藏**（`type=3`，即在看 / 在玩），不需要 token。
+> 番剧取自 Bangumi 的**公开收藏**（`type=3`，即在看），不需要 token。
 > 如果某个收藏是私密的，接口不会返回它。
+
+### 接入 Steam
+
+游戏数据来自 Steam 公开主页，不需要 API key：
+
+```js
+steam: {
+  vanity: "你的自定义 ID",           // steamcommunity.com/id/<vanity>
+  profileUrl: "https://steamcommunity.com/id/你的ID/",
+  limit: 3,
+}
+```
+
+```bash
+npm run steam       # 抓取最近在玩，生成 assets/data/steam.json 快照
+```
+
+> 需要 Steam 个人资料和「最近游戏」对公众可见；如果主页私密，卡片会显示空状态。
+> 抓取失败不会影响构建，会沿用仓库里上一次的快照。
 
 ### 写文章
 
@@ -173,12 +192,13 @@ bento-home/
 │  ├─ css/  base.css · home.css · article.css
 │  ├─ js/   config.js · site.js · bangumi.js · posts.js · article.js · archive.js
 │  ├─ img/  avatar.png · og-cover.png · demo/（示例封面）
-│  └─ data/bangumi.json     Bangumi 快照（同步后生成）
+│  └─ data/                 Bangumi / Steam 快照（同步后生成）
 ├─ scripts/
 │  ├─ build.mjs             Markdown → 站点（核心）
 │  ├─ dev.mjs               本地预览服务器
 │  ├─ new-post.mjs          新建文章
 │  ├─ sync-bangumi.mjs      抓取 Bangumi 快照
+│  ├─ sync-steam.mjs        抓取 Steam 最近在玩
 │  └─ vendor/               marked + highlight.js（内置，无需安装）
 └─ .github/workflows/deploy.yml
 ```
@@ -197,7 +217,7 @@ posts/*.md ──build.mjs──► dist/
 
 - 构建只依赖 Node 内置模块 + `scripts/vendor/` 里的两个库，速度约 0.3 秒
 - 部署时工作流会把 `dist/` 推送到 `master` 分支，由 GitHub Pages 直接提供；源文件始终留在 `main`
-- Bangumi 抓取失败不会中断部署，会保留仓库中上一次的快照
+- Bangumi / Steam 抓取失败不会中断部署，会保留仓库中上一次的快照
 
 ## 常见问题
 

@@ -177,27 +177,21 @@
 
   async function loadLive() {
     if (isUnconfigured) throw new Error("Bangumi 用户名尚未配置");
-    const [animeRaw, gameRaw] = await Promise.all([
-      fetchCollection(bgm.username, 2),
-      fetchCollection(bgm.username, 4),
-    ]);
+    const animeRaw = await fetchCollection(bgm.username, 2);
     const anime = animeRaw.filter((x) => x.type === 3);
-    const game = gameRaw.filter((x) => x.type === 3);
     return {
       source: "live",
       updatedAt: new Date().toISOString(),
       user: { username: bgm.username },
       totalAnime: anime.length,
-      totalGame: game.length,
       anime: pickActive(animeRaw, "anime", bgm.animeLimit || 3),
-      game: pickActive(gameRaw, "game", bgm.gameLimit || 3),
     };
   }
 
   async function loadSnapshot() {
     if (!bgm.snapshot) throw new Error("没有配置快照路径");
     const data = await utils.fetchJSON(bgm.snapshot, { timeout: 6000 });
-    if (!data || (!data.anime && !data.game)) throw new Error("快照为空");
+    if (!data || !data.anime) throw new Error("快照为空");
     return { ...data, source: "snapshot" };
   }
 
@@ -286,13 +280,9 @@
 
   function render(data) {
     const animeLimit = bgm.animeLimit || 3;
-    const gameLimit = bgm.gameLimit || 3;
-
     const anime = ensureNormalized(data.anime, "anime").slice(0, animeLimit);
-    const game = ensureNormalized(data.game, "game").slice(0, gameLimit);
 
     renderList($("#animeList"), anime, "anime");
-    renderList($("#gameList"), game, "game");
 
     const countEl = $("#animeCount");
     if (countEl) {
@@ -300,22 +290,12 @@
       countEl.textContent = total ? `${total} 部在追` : "暂无在追";
     }
 
-    const gameCount = $("#gameCount");
-    if (gameCount) {
-      if (data.source === "demo") {
-        gameCount.textContent = "示例数据 · 配置后自动同步";
-      } else {
-        const total = Number.isFinite(data.totalGame) ? data.totalGame : game.length;
-        gameCount.textContent = `${total} 部在玩 · 更新于 ${utils.timeAgo(data.updatedAt)}`;
-      }
-    }
-
     setSourceChip($("#animeSource"), data.source, data.updatedAt);
   }
 
   /* ---------------- 主流程 ---------------- */
   async function init() {
-    if (!$("#animeList") && !$("#gameList")) return;
+    if (!$("#animeList")) return;
 
     let data = null;
 
