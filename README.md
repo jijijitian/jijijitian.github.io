@@ -201,6 +201,9 @@ A：说明 `bangumi.username` 还是占位值，或浏览器请求被拦截。�
 **Q：文章不显示？**
 A：检查 front-matter 的两条 `---` 是否闭合、`draft` 是否为 `true`，以及文件名是否以 `.md` 结尾。
 
+**Q：第一次 Actions 在 Setup Pages 一步报错？**
+A：说明仓库还没有开启 Pages。到 **Settings → Pages** 把 Source 设为 **GitHub Actions**，再回到 Actions 点 **Re-run jobs** 即可。`enablement: true` 通常会自动完成这一步，但组织仓库可能需要管理员权限。
+
 **Q：部署后样式丢失？**
 A：Pages 的 Source 需要选 **GitHub Actions**（不是 Deploy from a branch）；本仓库产物在 `dist/`，需要经过 Actions 上传。
 
