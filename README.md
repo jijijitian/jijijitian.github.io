@@ -41,9 +41,15 @@ git push -u origin main
 
 ### 3. 打开 Pages
 
-仓库 → **Settings → Pages → Build and deployment → Source** 选择 **GitHub Actions**。
+仓库 → **Settings → Pages → Build and deployment**：
 
-之后每次 `git push` 都会自动构建并发布。也可以在 **Actions → Deploy to GitHub Pages → Run workflow** 手动触发。
+- **Source** 选择 **Deploy from a branch**
+- **Branch** 选择 **master**，目录选 **/(root)**
+
+> 为什么是 `master`？因为 Actions 会把 `main` 的构建产物推送到 `master`，Pages 再从 `master` 直接提供静态文件。
+> 首次推送时 `master` 还不存在，等 Actions 跑完第一次就会出现（也可以先手动发布一次，见下方命令）。
+
+之后每次 `git push` 到 `main` 都会自动构建并发布到 `master`。也可以在 **Actions → Build and deploy → Run workflow** 手动触发。
 
 ## 改成你自己的
 
@@ -190,7 +196,7 @@ posts/*.md ──build.mjs──► dist/
 ```
 
 - 构建只依赖 Node 内置模块 + `scripts/vendor/` 里的两个库，速度约 0.3 秒
-- 部署时 `actions/configure-pages` 会提供真实的 `base_url`，所以放在子路径仓库也能正确生成链接
+- 部署时工作流会把 `dist/` 推送到 `master` 分支，由 GitHub Pages 直接提供；源文件始终留在 `main`
 - Bangumi 抓取失败不会中断部署，会保留仓库中上一次的快照
 
 ## 常见问题
@@ -201,11 +207,14 @@ A：说明 `bangumi.username` 还是占位值，或浏览器请求被拦截。�
 **Q：文章不显示？**
 A：检查 front-matter 的两条 `---` 是否闭合、`draft` 是否为 `true`，以及文件名是否以 `.md` 结尾。
 
-**Q：第一次 Actions 在 Setup Pages 一步报错？**
-A：说明仓库还没有开启 Pages。到 **Settings → Pages** 把 Source 设为 **GitHub Actions**，再回到 Actions 点 **Re-run jobs** 即可。`enablement: true` 通常会自动完成这一步，但组织仓库可能需要管理员权限。
+**Q：Actions 在 Publish 一步报 `403`？**
+A：仓库的 Workflow permissions 被设成了只读。到 **Settings → Actions → General → Workflow permissions** 勾选 **Read and write permissions**，再重跑。
+
+**Q：`master` 分支是干什么的？**
+A：它是自动生成的发布分支，每次部署都会被覆盖，不要手动改。源文件和历史都在 `main`；需要回滚时可以从 `backup/*` 分支恢复。
 
 **Q：部署后样式丢失？**
-A：Pages 的 Source 需要选 **GitHub Actions**（不是 Deploy from a branch）；本仓库产物在 `dist/`，需要经过 Actions 上传。
+A：确认 Pages 的 Source 是 **Deploy from a branch → master → /(root)**，并且 `master` 根目录有 `assets/`、`index.html`。
 
 **Q：文章文件名可以用中文吗？**
 A：可以，构建时会自动做 URL 编码。不过更推荐用英文短横线命名（如 `hello-world.md`），分享出去的链接更短、更兼容。

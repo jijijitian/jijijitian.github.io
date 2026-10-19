@@ -7,11 +7,11 @@ window.SITE_CONFIG = {
   /* ---------- 身份 ---------- */
   name: "Jht", // 显示名（昵称）
   fullName: "Jht", // 全名，页脚用
-  handle: "@jht", // 社交账号
+  handle: "@jijijitian", // 社交账号
   avatar: "assets/img/avatar.png", // 头像，可换成自己的图片
   siteTitle: "Jht 的小站", // 浏览器标签 / 页脚
   description: "一个关于番剧、游戏和代码的个人角落。",
-  url: "https://yourname.github.io/", // 部署后的线上地址（RSS / sitemap 用，构建时会自动校正）
+  url: "https://jijijitian.github.io/", // 部署后的线上地址（RSS / sitemap 用）
   lang: "zh-CN",
 
   /* ---------- 首屏 ---------- */
@@ -41,9 +41,9 @@ window.SITE_CONFIG = {
 
   /* ---------- 社交链接 ---------- */
   socials: [
-    { label: "GitHub", href: "https://github.com/yourname", icon: "github" },
-    { label: "Bangumi", href: "https://bgm.tv/user/your_bangumi_id", icon: "bangumi" },
-    { label: "Email", href: "mailto:hello@example.com", icon: "mail" },
+    { label: "GitHub", href: "https://github.com/jijijitian", icon: "github" },
+    { label: "Bangumi", href: "https://bgm.tv/", icon: "bangumi" },
+    { label: "Email", href: "mailto:jihaotian0627@foxmail.com", icon: "mail" },
     { label: "RSS", href: "feed.xml", icon: "rss" },
   ],
 
