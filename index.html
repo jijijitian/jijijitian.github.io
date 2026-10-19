@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jht 的小站 · 番剧、游戏与代码</title>
+    <meta name="description" content="Jht 的个人主页：Bento Grid 布局，联动 Bangumi 展示正在追的番剧和游戏，用 Markdown 写文章，自动部署到 GitHub Pages。" />
+    <meta name="author" content="Jht" />
+    <meta name="theme-color" content="#0a0b0f" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f4f5f8" media="(prefers-color-scheme: light)" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Jht 的小站" />
+    <meta property="og:description" content="番剧、游戏与代码的个人角落。" />
+    <meta property="og:image" content="assets/img/og-cover.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" href="assets/img/avatar.png" type="image/png" />
+    <link rel="apple-touch-icon" href="assets/img/avatar.png" />
+    <link rel="alternate" type="application/rss+xml" title="Jht 的小站 · RSS" href="feed.xml" />
+
+    <link rel="stylesheet" href="assets/css/base.css" />
+    <link rel="stylesheet" href="assets/css/home.css" />
+
+    <!-- 首屏前先定主题，避免闪烁 -->
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem("theme");
+          var prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
+          document.documentElement.dataset.theme = saved || (prefersLight ? "light" : "dark");
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+
+  <body>
+    <a class="sr-only" href="#main">跳到主要内容</a>
+
+    <!-- ================= 顶栏 ================= -->
+    <header class="site-header" id="siteHeader">
+      <div class="wrap">
+        <a class="brand" href="./" aria-label="回到首页">
+          <span class="brand__dot"></span>
+          <span class="brand__name" data-bind="siteTitle">Jht 的小站</span>
+        </a>
+
+        <nav class="nav" aria-label="主导航">
+          <a href="#about">关于</a>
+          <a href="#bangumi">追番</a>
+          <a href="#posts" class="nav__keep">文章</a>
+          <a href="#now">现在</a>
+        </nav>
+
+        <div class="header-actions">
+          <button class="icon-btn theme-toggle" id="themeToggle" type="button" aria-label="切换深浅色主题" title="切换主题">
+            <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 1 0 9.79 9.79Z" fill="currentColor"/></svg>
+            <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.6 1.6M17 17l1.6 1.6M18.6 5.4 17 7M7 17l-1.6 1.6"/></g></svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main" class="wrap">
+      <!-- ================= Bento Grid ================= -->
+      <section class="bento" aria-label="个人主页卡片">
+
+        <!-- 1. 个人介绍 -->
+        <article class="tile tile--intro tile--glow" id="about" data-reveal>
+          <div class="intro__top">
+            <div>
+              <p class="intro__hello" data-bind="greeting">你好，我是</p>
+              <h1 class="intro__name" data-bind="name">Jht</h1>
+            </div>
+            <img class="intro__avatar" data-bind-src="avatar" src="assets/img/avatar.png" alt="Jht 的头像" width="84" height="84" />
+          </div>
+
+          <div class="tile__body">
+            <p class="intro__headline" data-bind="headline">白天写代码，晚上追番，偶尔打游戏。</p>
+            <p class="intro__bio" data-bind="bio">这里记录我喜欢的东西。</p>
+            <div class="intro__tags" data-bind-tags="tags"></div>
+          </div>
+
+          <div class="intro__meta">
+            <span>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-5.4 7-11a7 7 0 1 0-14 0c0 5.6 7 11 7 11Z" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="10" r="2.6" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>
+              <span data-bind="location">中国 · 某座城市</span>
+            </span>
+            <span>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 7.5V12l3 2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+              <span data-bind="status">保持好奇，缓慢生长</span>
+            </span>
+          </div>
+
+          <div class="intro__actions">
+            <a class="btn btn--primary" href="#posts">读读文章</a>
+            <a class="btn btn--ghost" data-bind-href="bangumiUrl" href="https://bgm.tv/" target="_blank" rel="noopener">Bangumi 主页</a>
+          </div>
+        </article>
+
+        <!-- 2. 时钟 -->
+        <article class="tile tile--clock" data-reveal style="--reveal-delay: 60ms">
+          <div class="tile__head">
+            <span class="tile__title">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 7.7V12l2.8 1.9" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+              Local time
+            </span>
+          </div>
+          <div class="tile__body">
+            <div class="clock">
+              <p class="clock__time" id="clockTime">--:--<small>--</small></p>
+              <div class="clock__meta">
+                <span class="clock__date" id="clockDate">加载中…</span>
+                <span class="clock__weather">
+                  <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="currentColor"/></svg>
+                  <span data-bind="location">China</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3. 正在追的番剧 -->
+        <article class="tile tile--anime" id="bangumi" data-reveal style="--reveal-delay: 120ms">
+          <div class="tile__head">
+            <span class="tile__title">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.8" y="5" width="13" height="14" rx="2.4" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="m15.8 10.4 4.1-2.6a.8.8 0 0 1 1.2.7v7a.8.8 0 0 1-1.2.7l-4.1-2.6Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+              Now watching
+            </span>
+            <span class="chip chip--live" id="animeSource"><span class="dot-live"></span> Bangumi</span>
+          </div>
+          <div class="tile__body">
+            <div class="media-list" id="animeList" aria-live="polite">
+              <div class="media-item">
+                <div class="skeleton media-item__cover"></div>
+                <div class="media-item__main">
+                  <div class="skeleton" style="height: 13px; width: 70%"></div>
+                  <div class="skeleton" style="height: 10px; width: 45%"></div>
+                </div>
+              </div>
+              <div class="media-item">
+                <div class="skeleton media-item__cover"></div>
+                <div class="media-item__main">
+                  <div class="skeleton" style="height: 13px; width: 62%"></div>
+                  <div class="skeleton" style="height: 10px; width: 38%"></div>
+                </div>
+              </div>
+              <div class="media-item">
+                <div class="skeleton media-item__cover"></div>
+                <div class="media-item__main">
+                  <div class="skeleton" style="height: 13px; width: 76%"></div>
+                  <div class="skeleton" style="height: 10px; width: 50%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tile__head" style="min-height: 0">
+            <span class="chip" id="animeCount">— 部在追</span>
+            <a class="link-more" data-bind-href="bangumiAnimeUrl" href="https://bgm.tv/" target="_blank" rel="noopener">
+              全部番剧
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- 4. 游戏（Bangumi 游戏收藏） -->
+        <article class="tile tile--entertainment" data-reveal style="--reveal-delay: 180ms">
+          <div class="tile__head">
+            <span class="tile__title">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.6 7h8.8a4.6 4.6 0 0 1 4.5 3.7l1 5.2a3 3 0 0 1-5.3 2.6L15 16H9l-1.6 2.5a3 3 0 0 1-5.3-2.6l1-5.2A4.6 4.6 0 0 1 7.6 7Z" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M8 10.5v3M6.5 12h3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="16" cy="11.3" r="1" fill="currentColor"/><circle cx="17.8" cy="13.3" r="1" fill="currentColor"/></svg>
+              Now playing
+            </span>
+            <a class="link-more" data-bind-href="bangumiGameUrl" href="https://bgm.tv/" target="_blank" rel="noopener">
+              游戏收藏
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+          <div class="tile__body">
+            <div class="media-list" id="gameList" aria-live="polite"></div>
+          </div>
+          <div class="tile__head" style="min-height: 0">
+            <span class="chip" id="gameCount">— 部在玩</span>
+          </div>
+        </article>
+
+        <!-- 5. 最近文章 -->
+        <article class="tile tile--posts" id="posts" data-reveal style="--reveal-delay: 240ms">
+          <div class="tile__head">
+            <span class="tile__title">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h9.5L19 9v10.5H5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M14 4.5V9h5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M8 13h8M8 16.4h5.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+              Latest notes
+            </span>
+            <a class="link-more" href="posts/">
+              全部文章
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+          <div class="tile__body">
+            <div class="post-list" id="postList" aria-live="polite">
+              <div class="post-row">
+                <span class="post-row__date skeleton" style="width: 74px; height: 11px"></span>
+                <span class="skeleton" style="height: 13px; width: 80%"></span>
+              </div>
+              <div class="post-row">
+                <span class="post-row__date skeleton" style="width: 74px; height: 11px"></span>
+                <span class="skeleton" style="height: 13px; width: 64%"></span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 6. 现在在做什么 -->
+        <article class="tile tile--status" id="now" data-reveal style="--reveal-delay: 300ms">
+          <div class="tile__head">
+            <span class="tile__title">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 5 13h5l-1 9 8-11h-5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+              Now
+            </span>
+          </div>
+          <div class="now-list" data-bind-now="nowDoing"></div>
+          <p class="now-heart">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7.5-4.6-7.5-9.4A4.1 4.1 0 0 1 12 7.6a4.1 4.1 0 0 1 7.5 3C19.5 15.4 12 20 12 20Z" fill="currentColor"/></svg>
+            用喜欢的事填满每一天
+          </p>
+        </article>
+
+        <!-- 7. 社交链接 -->
+        <article class="tile tile--social" data-reveal style="--reveal-delay: 360ms">
+          <div class="tile__head">
+            <span class="tile__title">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.6" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="m16 16 4.2 4.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              Find me
+            </span>
+          </div>
+          <div class="tile__body">
+            <div class="social-grid" data-bind-social="socials"></div>
+          </div>
+        </article>
+
+        <!-- 8. 一句话 -->
+        <article class="tile tile--quote" data-reveal style="--reveal-delay: 420ms">
+          <p class="quote__mark" aria-hidden="true">“</p>
+          <p class="quote__text">把生活切成小块，每一块都做成喜欢的样子。</p>
+          <p class="quote__from">— 本站手记</p>
+        </article>
+
+        <!-- 9. 写文章 CTA -->
+        <article class="tile tile--cta" data-reveal style="--reveal-delay: 480ms">
+          <h3>写一篇新文章</h3>
+          <p>把 <code>.md</code> 丢进 <code>posts/</code>，提交后 GitHub Actions 自动渲染并上线。</p>
+          <a class="btn btn--primary" href="posts/">进入文章列表</a>
+        </article>
+
+      </section>
+    </main>
+
+    <!-- ================= 页脚 ================= -->
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>© <span id="year">2026</span> <span data-bind="fullName">Jht</span> · <span data-bind="siteTitle">Jht 的小站</span></p>
+        <div class="footer-links">
+          <a href="posts/">文章</a>
+          <a href="feed.xml">RSS</a>
+          <a data-bind-href="bangumiUrl" href="https://bgm.tv/" target="_blank" rel="noopener">Bangumi</a>
+          <a href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/site.js"></script>
+    <script src="assets/js/bangumi.js"></script>
+    <script src="assets/js/posts.js"></script>
+  </body>
+</html>
