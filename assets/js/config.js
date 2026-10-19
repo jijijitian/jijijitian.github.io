@@ -5,11 +5,11 @@
  */
 window.SITE_CONFIG = {
   /* ---------- 身份 ---------- */
-  name: "Jht", // 显示名（昵称）
-  fullName: "Jht", // 全名，页脚用
+  name: "血小板埋埋", // 显示名（昵称）
+  fullName: "血小板埋埋", // 全名，页脚用
   handle: "@jijijitian", // 社交账号
   avatar: "assets/img/avatar.png", // 头像，可换成自己的图片
-  siteTitle: "Jht 的小站", // 浏览器标签 / 页脚
+  siteTitle: "血小板埋埋的小站", // 浏览器标签 / 页脚
   description: "一个关于番剧、游戏和代码的个人角落。",
   url: "https://jijijitian.github.io/", // 部署后的线上地址（RSS / sitemap 用）
   lang: "zh-CN",
@@ -18,20 +18,22 @@ window.SITE_CONFIG = {
   greeting: "你好，我是",
   headline: "白天写代码，晚上追番，偶尔打游戏。",
   bio: "这里记录我喜欢的东西：番剧、游戏、还有折腾出来的小玩意儿。喜欢 Bento Grid，因为每个格子都能装一点生活。",
-  location: "中国 · 某座城市",
+  location: "苏州 · 江苏",
   status: "保持好奇，缓慢生长",
   tags: ["前端", "Markdown", "番剧", "游戏", "折腾"],
 
   /* ---------- Bangumi ---------- */
   bangumi: {
     // 你的 Bangumi 用户名（bgm.tv/user/ 后面的那段）
-    username: "your_bangumi_id",
-    nickname: "yourid",
+    username: "623062",
+    nickname: "血小板埋埋",
     // true = 浏览器实时请求 Bangumi 公开 API（数据最新，需要联网）
     // false = 使用 assets/data/bangumi.json 里的快照（离线可用，可定时刷新）
     live: true,
     // 实时请求失败时自动回退到快照；快照路径
     snapshot: "assets/data/bangumi.json",
+    // 是否隐藏 Bangumi 里标记为「里番 / R18」的收藏（公开主页建议保持 true）
+    hideAdult: true,
     // 首页展示数量
     animeLimit: 3,
     gameLimit: 3,
@@ -42,7 +44,7 @@ window.SITE_CONFIG = {
   /* ---------- 社交链接 ---------- */
   socials: [
     { label: "GitHub", href: "https://github.com/jijijitian", icon: "github" },
-    { label: "Bangumi", href: "https://bgm.tv/", icon: "bangumi" },
+    { label: "Bangumi", href: "https://bgm.tv/user/623062", icon: "bangumi" },
     { label: "Email", href: "mailto:jihaotian0627@foxmail.com", icon: "mail" },
     { label: "RSS", href: "feed.xml", icon: "rss" },
   ],

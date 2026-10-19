@@ -52,6 +52,9 @@ function normalize(item) {
     ep: item.ep_status || 0,
     total: s.eps || 0,
     type: item.type,
+    tags: (s.tags || [])
+      .map((t) => (typeof t === "string" ? t : t && t.name))
+      .filter(Boolean),
     status: item.ep_status ? "在看" : "",
     updatedAt: item.updated_at || "",
     url: s.id ? `https://bgm.tv/subject/${s.id}` : "https://bgm.tv/",
@@ -75,9 +78,12 @@ async function fetchCollection(username, subjectType) {
   return all;
 }
 
-function sortEntries(list) {
+const ADULT_TAGS = /(里番|18禁|R-?18|成人向|工口)/i;
+
+function sortEntries(list, hideAdult = true) {
   return list
     .map(normalize)
+    .filter((entry) => !(hideAdult && (entry.tags || []).some((t) => ADULT_TAGS.test(t))))
     .sort((a, b) => new Date(b.updatedAt || 0) - new Date(a.updatedAt || 0));
 }
 
@@ -107,8 +113,8 @@ async function main() {
     user: { username },
     totalAnime: anime.length,
     totalGame: game.length,
-    anime: sortEntries(anime).slice(0, limit),
-    game: sortEntries(game).slice(0, limit),
+    anime: sortEntries(anime, bgm.hideAdult !== false).slice(0, limit),
+    game: sortEntries(game, bgm.hideAdult !== false).slice(0, limit),
   };
 
   await fs.mkdir(path.dirname(OUT), { recursive: true });

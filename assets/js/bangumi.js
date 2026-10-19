@@ -122,6 +122,9 @@
       ep: Number(item.ep_status) || 0,
       total: Number(subject.eps) || (kind === "game" ? 0 : FALLBACK_EPS),
       status: TYPE_LABEL[item.type] || "",
+      tags: (subject.tags || [])
+        .map((t) => (typeof t === "string" ? t : t && t.name))
+        .filter(Boolean),
       type: item.type,
       rate: item.rate || 0,
       comment: item.comment || "",
@@ -130,12 +133,16 @@
     };
   }
 
+  const ADULT_TAGS = /(里番|18禁|R-?18|成人向|工口)/i;
+  const hideAdult = bgm.hideAdult !== false;
+  const isAdult = (entry) => hideAdult && entry.tags.some((t) => ADULT_TAGS.test(t));
+
   /** 只保留「在看 / 在玩」，优先展示进度未完成、最近更新的 */
   function pickActive(list, kind, limit) {
     const active = (list || [])
       .filter((item) => item && item.type === 3)
       .map((item) => normalize(item, kind))
-      .filter((item) => item.id);
+      .filter((item) => item.id && !isAdult(item));
 
     active.sort((a, b) => {
       const doneA = a.total > 0 && a.ep >= a.total;

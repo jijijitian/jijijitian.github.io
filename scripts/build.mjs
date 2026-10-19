@@ -67,9 +67,9 @@ const BASE_URL = (
 const BASE_PATH = new URL(`${BASE_URL}/`).pathname;
 
 const SITE = {
-  name: site.name || "Jht",
-  fullName: site.fullName || site.name || "Jht",
-  title: site.siteTitle || "Jht 的小站",
+  name: site.name || "血小板埋埋",
+  fullName: site.fullName || site.name || "血小板埋埋",
+  title: site.siteTitle || "血小板埋埋的小站",
   description: site.description || "番剧、游戏与代码的个人角落。",
   lang: site.lang || "zh-CN",
   avatar: site.avatar || "assets/img/avatar.png",
