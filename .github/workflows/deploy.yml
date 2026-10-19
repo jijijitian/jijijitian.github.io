@@ -34,6 +34,9 @@ jobs:
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
+        with:
+          # 首次运行自动开启 Pages（仓库需要 Pages 写权限）
+          enablement: true
 
       - name: Sync Bangumi snapshot
         # 抓取失败不会中断部署，会保留仓库里上一次的快照

@@ -2,7 +2,7 @@
 
 一个可以直接放到 GitHub Pages 上的静态个人主页：**Bento Grid 布局**、**Bangumi 追番/游戏联动**、**Markdown 自动构建成文章**，零第三方依赖、零 `npm install`。
 
-![首页预览](assets/img/og-cover.png)
+![首页预览](assets/img/preview.png)
 
 ## 功能一览
 
