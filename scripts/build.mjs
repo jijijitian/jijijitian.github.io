@@ -63,6 +63,9 @@ const BASE_URL = (
   .replace(/\/+$/, "")
   .replace(/\/index\.html$/, "");
 
+/** 站点在域名下的路径（项目页是 /repo/，用户页是 /），用于 404 这类无法依赖相对路径的页面 */
+const BASE_PATH = new URL(`${BASE_URL}/`).pathname;
+
 const SITE = {
   name: site.name || "Jht",
   fullName: site.fullName || site.name || "Jht",
@@ -398,20 +401,20 @@ function headHtml({ title, description, canonical, type = "website", image, pref
   </head>`;
 }
 
-function headerHtml(active) {
+function headerHtml(active, prefix = "../") {
   const link = (href, label, key) =>
     `<a href="${href}"${active === key ? ' class="is-active"' : ""}>${label}</a>`;
   return `  <header class="site-header" id="siteHeader">
     <div class="wrap">
-      <a class="brand" href="../" aria-label="回到首页">
+      <a class="brand" href="${prefix}" aria-label="回到首页">
         <span class="brand__dot"></span>
         <span class="brand__name">${escapeHtml(SITE.title)}</span>
       </a>
       <nav class="nav" aria-label="主导航">
-        ${link("../#about", "关于", "about")}
-        ${link("../#bangumi", "追番", "bangumi")}
-        ${link("./", "文章", "posts")}
-        ${link("../#now", "现在", "now")}
+        ${link(`${prefix}#about`, "关于", "about")}
+        ${link(`${prefix}#bangumi`, "追番", "bangumi")}
+        ${link(`${prefix}posts/`, "文章", "posts")}
+        ${link(`${prefix}#now`, "现在", "now")}
       </nav>
       <div class="header-actions">
         <button class="icon-btn theme-toggle" id="themeToggle" type="button" aria-label="切换深浅色主题">
@@ -641,17 +644,17 @@ function notFoundPage() {
     title: `页面走丢了 · ${SITE.title}`,
     description: "这一页不存在。",
     canonical: `${BASE_URL}/404.html`,
-    prefix: "./",
+    prefix: BASE_PATH,
   })}
   <body class="page-404" data-title-lock>
-${headerHtml("")}
+${headerHtml("", BASE_PATH)}
     <main class="wrap not-found">
       <p class="not-found__code">404</p>
       <h1>这一格是空的</h1>
       <p>你要找的页面不存在，可能是文章改名了，或者链接复制时少了一截。</p>
-      <a class="btn btn--primary" href="./">回到首页</a>
+      <a class="btn btn--primary" href="${BASE_PATH}">回到首页</a>
     </main>
-${footerHtml("./")}
+${footerHtml(BASE_PATH)}
   </body>
 </html>
 `;
