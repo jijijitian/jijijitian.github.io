@@ -127,6 +127,16 @@ const slugify = (text, used) => {
 
 const pad = (n) => String(n).padStart(2, "0");
 
+/**
+ * 解析文章日期。统一取“日期部分的当天中午 UTC”，
+ * 避免 GitHub Actions（UTC）和本地（东八区）构建出来的日期相差一天。
+ */
+function parsePostDate(value) {
+  const m = String(value || "").match(/^(\d{4})-(\d{1,2})-(\d{1,2})(?:[ T](\d{1,2}):(\d{2}))?/);
+  if (!m) return null;
+  return new Date(Date.UTC(Number(m[1]), Number(m[2]) - 1, Number(m[3]), 12, 0, 0));
+}
+
 function formatDate(date, style = "long") {
   if (!(date instanceof Date) || Number.isNaN(date.getTime())) return "";
   const y = date.getFullYear();
@@ -312,9 +322,9 @@ async function loadPosts() {
 
     if (draft && !INCLUDE_DRAFTS) continue;
 
-    const date = new Date(data.date || "");
+    const date = parsePostDate(data.date);
     const fallbackDate = (await fs.stat(file)).mtime;
-    const finalDate = Number.isNaN(date.getTime()) ? fallbackDate : date;
+    const finalDate = date || fallbackDate;
 
     const html = renderMarkdown(body);
     const toc = extractToc(html);
