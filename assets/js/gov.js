@@ -1,6 +1,6 @@
 /* ==========================================================================
    gov.js —— 政务风首页交互
-   轮播、要闻标签页、长者版、返回顶部、数据统计
+   轮播、要闻标签、公告日期卡、热门推荐、文章索引、长者版、返回顶部
    ========================================================================== */
 (function () {
   "use strict";
@@ -12,6 +12,27 @@
 
   let posts = [];
   let nowItems = [];
+  let bangumi = null;
+  let steam = null;
+
+  /* ---------------- 小工具 ---------------- */
+  function escapeHtml(value) {
+    return utils ? utils.escapeHtml(value) : String(value || "");
+  }
+
+  function pad(n) {
+    return String(n).padStart(2, "0");
+  }
+
+  function dateParts(value) {
+    const d = new Date(value);
+    if (Number.isNaN(d.getTime())) return null;
+    return {
+      day: pad(d.getDate()),
+      month: `${d.getFullYear()}-${pad(d.getMonth() + 1)}`,
+      label: `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`,
+    };
+  }
 
   /* ---------------- 日期 ---------------- */
   function initDate() {
@@ -90,7 +111,7 @@
 
     const start = () => {
       if (reduce || timer) return;
-      timer = setInterval(() => show(index + 1), 6500);
+      timer = setInterval(() => show(index + 1), 8000);
     };
 
     $("#govNext")?.addEventListener("click", () => {
@@ -123,19 +144,7 @@
     start();
   }
 
-  /* ---------------- 要闻列表 ---------------- */
-  function dateLabel(post) {
-    const d = new Date(post.date);
-    if (Number.isNaN(d.getTime())) return "";
-    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(
-      d.getDate()
-    ).padStart(2, "0")}`;
-  }
-
-  function escapeHtml(value) {
-    return utils ? utils.escapeHtml(value) : String(value || "");
-  }
-
+  /* ---------------- 要闻动态 ---------------- */
   function renderNews() {
     const body = $("#govNewsBody");
     if (!body) return;
@@ -157,7 +166,7 @@
           (post) => `
         <a class="gov-news-item" href="${escapeHtml(post.url)}">
           <span class="gov-news-item__title">${escapeHtml(post.title)}</span>
-          <span class="gov-news-item__date">${dateLabel(post)}</span>
+          <span class="gov-news-item__date">${dateParts(post.date)?.label || ""}</span>
         </a>`
         )
         .join("")}
@@ -186,8 +195,8 @@
     `;
   }
 
-  function initTabs() {
-    const tabs = $$(".gov-tab");
+  function initNewsTabs() {
+    const tabs = $$(".gov-news .gov-tab");
     if (!tabs.length) return;
 
     tabs.forEach((tab) => {
@@ -200,6 +209,141 @@
         else renderNews();
       });
     });
+  }
+
+  /* ---------------- 公告日期卡 ---------------- */
+  function announceItems(type) {
+    if (type === "anime") {
+      return (bangumi?.anime || []).slice(0, 4).map((item) => ({
+        title: item.nameCN || item.name,
+        date: item.updatedAt,
+        url: item.url || "#bangumi",
+      }));
+    }
+    if (type === "games") {
+      return (steam?.games || []).slice(0, 4).map((item) => ({
+        title: item.name,
+        date: item.lastPlayed,
+        url: item.url || "#games",
+      }));
+    }
+    return posts.slice(0, 4).map((post) => ({
+      title: post.title,
+      date: post.date,
+      url: post.url,
+    }));
+  }
+
+  function renderDateCards(type = "posts") {
+    const grid = $("#govDateGrid");
+    if (!grid) return;
+    const items = announceItems(type);
+
+    if (!items.length) {
+      grid.innerHTML = '<p class="media-empty" style="grid-column:1/-1">暂时没有可展示的内容。</p>';
+      return;
+    }
+
+    grid.innerHTML = items
+      .map((item) => {
+        const d = dateParts(item.date);
+        return `
+          <a class="gov-date-card" href="${escapeHtml(item.url)}">
+            <span class="gov-date-card__date">
+              <span class="gov-date-card__day">${d ? d.day : "—"}</span>
+              <span class="gov-date-card__month">${d ? d.month : ""}</span>
+            </span>
+            <span class="gov-date-card__title">${escapeHtml(item.title)}</span>
+          </a>`;
+      })
+      .join("");
+  }
+
+  function initAnnounceTabs() {
+    const tabs = $$(".gov-announce-tabs .gov-tab");
+    if (!tabs.length) return;
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        tabs.forEach((t) => {
+          t.classList.toggle("is-active", t === tab);
+          t.setAttribute("aria-selected", String(t === tab));
+        });
+        renderDateCards(tab.dataset.announce || "posts");
+      });
+    });
+  }
+
+  /* ---------------- 热门推荐 ---------------- */
+  function renderRecommend() {
+    const list = $("#govRecommend");
+    if (!list) return;
+    const items = posts.slice(1, 6);
+    if (!items.length) {
+      list.innerHTML = '<p class="media-empty">暂无推荐。</p>';
+      return;
+    }
+    list.innerHTML = items
+      .map(
+        (post) => `
+        <div class="gov-recommend__item">
+          <a href="${escapeHtml(post.url)}">${escapeHtml(post.title)}</a>
+          <span>${dateParts(post.date)?.label || ""}</span>
+        </div>`
+      )
+      .join("");
+  }
+
+  /* ---------------- 文章索引 ---------------- */
+  let docTag = "all";
+  let docKeyword = "";
+
+  function renderDocList() {
+    const list = $("#govDocList");
+    if (!list) return;
+
+    const keyword = docKeyword.trim().toLowerCase();
+    const items = posts
+      .filter((post) => {
+        if (docTag !== "all" && !(post.tags || []).includes(docTag)) return false;
+        if (!keyword) return true;
+        const haystack = `${post.title} ${post.summary || ""} ${(post.tags || []).join(" ")}`.toLowerCase();
+        return haystack.includes(keyword);
+      })
+      .slice(0, 7);
+
+    if (!items.length) {
+      list.innerHTML = '<p class="media-empty">没有匹配的文章。</p>';
+      return;
+    }
+
+    list.innerHTML = items
+      .map(
+        (post) => `
+        <a class="gov-doc-item" href="${escapeHtml(post.url)}">
+          <span class="gov-doc-item__title">${escapeHtml(post.title)}</span>
+          <span class="gov-doc-item__date">${dateParts(post.date)?.label || ""}</span>
+        </a>`
+      )
+      .join("");
+  }
+
+  function initDocControls() {
+    const tabs = $$(".gov-doc-tab");
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        tabs.forEach((t) => t.classList.toggle("is-active", t === tab));
+        docTag = tab.dataset.docTag || "all";
+        renderDocList();
+      });
+    });
+
+    const search = $("#govDocSearch");
+    if (search) {
+      search.addEventListener("input", () => {
+        docKeyword = search.value || "";
+        renderDocList();
+      });
+    }
   }
 
   /* ---------------- 数据 ---------------- */
@@ -260,19 +404,33 @@
     initDate();
     initSenior();
     initCarousel();
-    initTabs();
+    initNewsTabs();
+    initAnnounceTabs();
+    initDocControls();
     initTop();
 
-    try {
-      const data = await utils.fetchJSON("posts/index.json", { timeout: 8000 });
+    nowItems = Array.isArray(cfg.nowDoing) ? cfg.nowDoing : [];
+
+    const [postResult, bgmResult, steamResult] = await Promise.allSettled([
+      utils.fetchJSON("posts/index.json", { timeout: 8000 }),
+      utils.fetchJSON("assets/data/bangumi.json", { timeout: 8000 }),
+      utils.fetchJSON("assets/data/steam.json", { timeout: 8000 }),
+    ]);
+
+    if (postResult.status === "fulfilled") {
+      const data = postResult.value;
       posts = Array.isArray(data) ? data : data.posts || [];
-    } catch (err) {
-      console.warn("[gov] 文章清单加载失败：", err && err.message);
-      posts = [];
+    } else {
+      console.warn("[gov] 文章清单加载失败：", postResult.reason?.message);
     }
 
-    nowItems = Array.isArray(cfg.nowDoing) ? cfg.nowDoing : [];
+    if (bgmResult.status === "fulfilled") bangumi = bgmResult.value;
+    if (steamResult.status === "fulfilled") steam = steamResult.value;
+
     renderNews();
+    renderDateCards("posts");
+    renderRecommend();
+    renderDocList();
     initStats();
   }
 
