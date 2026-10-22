@@ -192,7 +192,7 @@ bento-home/
 │  ├─ hello-markdown.md     示例文章
 │  └─ *.md
 ├─ assets/
-│  ├─ css/  base.css · gov.css · home.css · article.css
+│  ├─ css/  base.css · gov.css · gov-page.css · home.css · article.css
 │  ├─ js/   config.js · site.js · gov.js · bangumi.js · steam.js · posts.js · article.js · archive.js
 │  ├─ img/  avatar.png · og-cover.png · gov-skyline.svg · demo/（示例封面）
 │  └─ data/                 Bangumi / Steam 快照（同步后生成）

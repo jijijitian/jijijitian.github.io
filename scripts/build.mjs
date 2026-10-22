@@ -372,7 +372,7 @@ const ICON = {
 
 function headHtml({ title, description, canonical, type = "website", image, prefix = "../" }) {
   return `<!DOCTYPE html>
-<html lang="${SITE.lang}" data-theme="dark">
+<html lang="${SITE.lang}" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -388,54 +388,58 @@ function headHtml({ title, description, canonical, type = "website", image, pref
     <link rel="icon" href="${prefix}${escapeHtml(SITE.avatar)}" type="image/png" />
     <link rel="alternate" type="application/rss+xml" title="${escapeHtml(SITE.title)} · RSS" href="${prefix}feed.xml" />
     <link rel="stylesheet" href="${prefix}assets/css/base.css" />
+    <link rel="stylesheet" href="${prefix}assets/css/gov.css" />
     <link rel="stylesheet" href="${prefix}assets/css/article.css" />
-    <script>
-      (function () {
-        try {
-          var saved = localStorage.getItem("theme");
-          var prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
-          document.documentElement.dataset.theme = saved || (prefersLight ? "light" : "dark");
-        } catch (e) {}
-      })();
-    </script>
+    <link rel="stylesheet" href="${prefix}assets/css/gov-page.css" />
   </head>`;
 }
 
 function headerHtml(active, prefix = "../") {
   const link = (href, label, key) =>
     `<a href="${href}"${active === key ? ' class="is-active"' : ""}>${label}</a>`;
-  return `  <header class="site-header" id="siteHeader">
+  return `  <div class="gsub-top">
     <div class="wrap">
-      <a class="brand" href="${prefix}" aria-label="回到首页">
-        <span class="brand__dot"></span>
-        <span class="brand__name">${escapeHtml(SITE.title)}</span>
-      </a>
-      <nav class="nav" aria-label="主导航">
-        ${link(`${prefix}#about`, "关于", "about")}
-        ${link(`${prefix}#bangumi`, "追番", "bangumi")}
-        ${link(`${prefix}posts/`, "文章", "posts")}
-        ${link(`${prefix}#now`, "现在", "now")}
-      </nav>
-      <div class="header-actions">
-        <button class="icon-btn theme-toggle" id="themeToggle" type="button" aria-label="切换深浅色主题">
-          <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true">${ICON.moon}</svg>
-          <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true">${ICON.sun}</svg>
-        </button>
+      <span class="gsub-badge">个人网站 · 非政府官方</span>
+      <div class="gsub-toplinks">
+        <a href="${prefix}">首页</a>
+        <a href="${prefix}posts/">文章公开</a>
+        <a href="${prefix}feed.xml">RSS</a>
+        <a href="${escapeHtml(SITE.bangumiUrl)}" target="_blank" rel="noopener">Bangumi</a>
       </div>
+    </div>
+  </div>
+  <header class="gsub-head">
+    <div class="wrap">
+      <a class="gsub-brand" href="${prefix}" aria-label="回到首页">
+        <span class="gsub-seal" aria-hidden="true">埋</span>
+        <span class="gsub-brand__text">
+          <strong>${escapeHtml(SITE.title)}</strong>
+          <em>PERSONAL PORTAL</em>
+        </span>
+      </a>
+      <nav class="gsub-nav" aria-label="主导航">
+        <a href="${prefix}">首页</a>
+        ${link(`${prefix}posts/`, "文章公开", "posts")}
+        ${link(`${prefix}#bangumi`, "追番记录", "bangumi")}
+        ${link(`${prefix}#games`, "游戏天地", "games")}
+        ${link(`${prefix}#contact`, "互动交流", "now")}
+      </nav>
     </div>
   </header>`;
 }
 
 function footerHtml(prefix = "../") {
-  return `  <footer class="site-footer">
+  return `  <footer class="gsub-footer">
     <div class="wrap">
-      <p>© ${new Date().getFullYear()} ${escapeHtml(SITE.fullName)} · ${escapeHtml(SITE.title)}</p>
-      <div class="footer-links">
-        <a href="${prefix}posts/">文章</a>
-        <a href="${prefix}feed.xml">RSS</a>
-        <a href="${escapeHtml(SITE.bangumiUrl)}" target="_blank" rel="noopener">Bangumi</a>
+      <div class="gsub-footer__links">
         <a href="${prefix}">首页</a>
+        <a href="${prefix}posts/">文章公开</a>
+        <a href="${prefix}feed.xml">RSS</a>
+        <a href="https://github.com/jijijitian" target="_blank" rel="noopener">GitHub</a>
+        <a href="${escapeHtml(SITE.bangumiUrl)}" target="_blank" rel="noopener">Bangumi</a>
       </div>
+      <p class="gsub-footer__note">本站为个人网站，非政府官方网站；页面版式仅为个人审美尝试，不代表任何机构。</p>
+      <p>© ${new Date().getFullYear()} ${escapeHtml(SITE.fullName)} · ${escapeHtml(SITE.title)} · 由 GitHub Pages 提供托管</p>
     </div>
   </footer>`;
 }
