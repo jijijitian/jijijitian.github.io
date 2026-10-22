@@ -1,277 +1,325 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="dark">
+<html lang="zh-CN" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>血小板埋埋的小站 · 番剧、游戏与代码</title>
-    <meta name="description" content="血小板埋埋的个人主页：Bento Grid 布局，联动 Bangumi 展示正在追的番剧和游戏，用 Markdown 写文章，自动部署到 GitHub Pages。" />
+    <title>血小板埋埋的个人门户</title>
+    <meta name="description" content="血小板埋埋的个人门户：以个人之名，记录番剧、游戏与代码的日常。" />
     <meta name="author" content="血小板埋埋" />
-    <meta name="theme-color" content="#0a0b0f" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#f4f5f8" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#17558d" />
 
-    <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="血小板埋埋的小站" />
-    <meta property="og:description" content="番剧、游戏与代码的个人角落。" />
+    <meta property="og:title" content="血小板埋埋的个人门户" />
+    <meta property="og:description" content="以个人之名，记录番剧、游戏与代码的日常。" />
     <meta property="og:image" content="assets/img/og-cover.png" />
     <meta name="twitter:card" content="summary_large_image" />
 
     <link rel="icon" href="assets/img/avatar.png" type="image/png" />
-    <link rel="apple-touch-icon" href="assets/img/avatar.png" />
-    <link rel="alternate" type="application/rss+xml" title="血小板埋埋的小站 · RSS" href="feed.xml" />
-
+    <link rel="alternate" type="application/rss+xml" title="血小板埋埋的个人门户 · RSS" href="feed.xml" />
     <link rel="stylesheet" href="assets/css/base.css" />
-    <link rel="stylesheet" href="assets/css/home.css" />
-
-    <!-- 首屏前先定主题，避免闪烁 -->
-    <script>
-      (function () {
-        try {
-          var saved = localStorage.getItem("theme");
-          var prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
-          document.documentElement.dataset.theme = saved || (prefersLight ? "light" : "dark");
-        } catch (e) {}
-      })();
-    </script>
+    <link rel="stylesheet" href="assets/css/gov.css" />
   </head>
 
-  <body>
-    <a class="sr-only" href="#main">跳到主要内容</a>
+  <body data-title-lock>
+    <a class="gov-skip" href="#main">跳到主要内容</a>
 
-    <!-- ================= 顶栏 ================= -->
-    <header class="site-header" id="siteHeader">
-      <div class="wrap">
-        <a class="brand" href="./" aria-label="回到首页">
-          <span class="brand__dot"></span>
-          <span class="brand__name" data-bind="siteTitle">血小板埋埋的小站</span>
-        </a>
-
-        <nav class="nav" aria-label="主导航">
-          <a href="#about">关于</a>
-          <a href="#bangumi">追番</a>
-          <a href="#posts" class="nav__keep">文章</a>
-          <a href="#now">现在</a>
-        </nav>
-
-        <div class="header-actions">
-          <button class="icon-btn theme-toggle" id="themeToggle" type="button" aria-label="切换深浅色主题" title="切换主题">
-            <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 1 0 9.79 9.79Z" fill="currentColor"/></svg>
-            <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.6 1.6M17 17l1.6 1.6M18.6 5.4 17 7M7 17l-1.6 1.6"/></g></svg>
-          </button>
+    <!-- 顶部辅助条 -->
+    <div class="gov-utility">
+      <div class="gov-wrap">
+        <div class="gov-utility__left">
+          <a href="#main">无障碍浏览</a>
+          <span class="gov-sep">|</span>
+          <button type="button" id="govSenior">长者版</button>
+          <span class="gov-sep">|</span>
+          <a href="feed.xml">RSS 订阅</a>
+        </div>
+        <div class="gov-utility__right">
+          <span class="gov-badge">个人网站 · 非政府官方</span>
+          <time id="govDate">2026年10月22日 星期四</time>
+          <a href="https://github.com/jijijitian" target="_blank" rel="noopener">GitHub</a>
         </div>
       </div>
+    </div>
+
+    <!-- 报头 -->
+    <header class="gov-masthead">
+      <div class="gov-wrap">
+        <div class="gov-brand">
+          <span class="gov-seal" aria-hidden="true">埋</span>
+          <div>
+            <h1><span data-bind="name">血小板埋埋</span>的<span class="gov-brand__accent">个人门户</span></h1>
+            <p>PERSONAL PORTAL · 番剧 / 游戏 / 代码</p>
+          </div>
+        </div>
+        <p class="gov-masthead__slogan">以个人之名，记录热爱与日常</p>
+      </div>
+      <img class="gov-skyline" src="assets/img/gov-skyline.svg" alt="" aria-hidden="true" />
     </header>
 
-    <main id="main" class="wrap">
-      <!-- ================= Bento Grid ================= -->
-      <section class="bento" aria-label="个人主页卡片">
+    <!-- 主导航 -->
+    <nav class="gov-nav" aria-label="主导航">
+      <div class="gov-wrap">
+        <a class="gov-nav__home" href="#home" aria-label="首页">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3.5 11 8.5-7 8.5 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 10v9h13v-9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M10 19v-5h4v5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#about">个人概况</a>
+        <a href="#news">动态要闻</a>
+        <a href="#bangumi">追番记录</a>
+        <a href="#games">游戏天地</a>
+        <a href="#posts">文章公开</a>
+        <a href="#contact">互动交流</a>
+        <form class="gov-search" action="posts/" method="get" role="search">
+          <input type="search" name="q" placeholder="搜索文章关键词" aria-label="搜索文章" autocomplete="off" />
+          <button type="submit" aria-label="搜索">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4.2 4.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </button>
+        </form>
+      </div>
+    </nav>
 
-        <!-- 1. 个人介绍 -->
-        <article class="tile tile--intro tile--glow" id="about" data-reveal>
-          <div class="intro__top">
-            <div>
-              <p class="intro__hello" data-bind="greeting">你好，我是</p>
-              <h1 class="intro__name" data-bind="name">血小板埋埋</h1>
-            </div>
-            <img class="intro__avatar" data-bind-src="avatar" src="assets/img/avatar.png" alt="血小板埋埋的头像" width="84" height="84" />
-          </div>
-
-          <div class="tile__body">
-            <p class="intro__headline" data-bind="headline">白天写代码，晚上追番，偶尔打游戏。</p>
-            <p class="intro__bio" data-bind="bio">这里记录我喜欢的东西。</p>
-            <div class="intro__tags" data-bind-tags="tags"></div>
-          </div>
-
-          <div class="intro__meta">
-            <span>
-              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-5.4 7-11a7 7 0 1 0-14 0c0 5.6 7 11 7 11Z" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="10" r="2.6" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>
-              <span data-bind="location">中国 · 某座城市</span>
-            </span>
-            <span>
-              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 7.5V12l3 2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
-              <span data-bind="status">保持好奇，缓慢生长</span>
-            </span>
-          </div>
-
-          <div class="intro__actions">
-            <a class="btn btn--primary" href="#posts">读读文章</a>
-            <a class="btn btn--ghost" data-bind-href="bangumiUrl" href="https://bgm.tv/" target="_blank" rel="noopener">Bangumi 主页</a>
-          </div>
-        </article>
-
-        <!-- 2. 时钟 -->
-        <article class="tile tile--clock" data-reveal style="--reveal-delay: 60ms">
-          <div class="tile__head">
-            <span class="tile__title">
-              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 7.7V12l2.8 1.9" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
-              Local time
-            </span>
-          </div>
-          <div class="tile__body">
-            <div class="clock">
-              <p class="clock__time" id="clockTime">--:--<small>--</small></p>
-              <div class="clock__meta">
-                <span class="clock__date" id="clockDate">加载中…</span>
-                <span class="clock__weather">
-                  <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="currentColor"/></svg>
-                  <span data-bind="location">China</span>
-                </span>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- 3. 正在追的番剧 -->
-        <article class="tile tile--anime" id="bangumi" data-reveal style="--reveal-delay: 120ms">
-          <div class="tile__head">
-            <span class="tile__title">
-              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.8" y="5" width="13" height="14" rx="2.4" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="m15.8 10.4 4.1-2.6a.8.8 0 0 1 1.2.7v7a.8.8 0 0 1-1.2.7l-4.1-2.6Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
-              Now watching
-            </span>
-            <span class="chip chip--live" id="animeSource"><span class="dot-live"></span> Bangumi</span>
-          </div>
-          <div class="tile__body">
-            <div class="media-list" id="animeList" aria-live="polite">
-              <div class="media-item">
-                <div class="skeleton media-item__cover"></div>
-                <div class="media-item__main">
-                  <div class="skeleton" style="height: 13px; width: 70%"></div>
-                  <div class="skeleton" style="height: 10px; width: 45%"></div>
+    <main id="main">
+      <div class="gov-wrap">
+        <!-- 首屏：轮播 + 要闻 -->
+        <section class="gov-hero" id="home" aria-label="首屏">
+          <div class="gov-carousel" id="govCarousel" aria-roledescription="carousel" aria-label="个人简介与动态">
+            <article class="gov-slide gov-slide--1 is-active" data-slide="0" aria-hidden="false">
+              <div class="gov-slide__content">
+                <p class="gov-slide__eyebrow">PROFILE · 个人简介</p>
+                <h2>你好，我是<span data-bind="name">血小板埋埋</span></h2>
+                <p class="gov-slide__desc">白天写代码，晚上追番，偶尔打游戏。这里是一个普通人的个人门户，记录喜欢的事和折腾出来的小玩意儿。</p>
+                <div class="gov-slide__actions">
+                  <a class="gov-btn gov-btn--red" href="#about">了解更多</a>
+                  <a class="gov-btn" href="#posts">阅读文章</a>
                 </div>
               </div>
-              <div class="media-item">
-                <div class="skeleton media-item__cover"></div>
-                <div class="media-item__main">
-                  <div class="skeleton" style="height: 13px; width: 62%"></div>
-                  <div class="skeleton" style="height: 10px; width: 38%"></div>
+              <div class="gov-slide__portrait">
+                <img data-bind-src="avatar" src="assets/img/avatar.png" alt="血小板埋埋的头像" width="168" height="168" />
+              </div>
+            </article>
+
+            <article class="gov-slide gov-slide--2" data-slide="1" aria-hidden="true">
+              <div class="gov-slide__content">
+                <p class="gov-slide__eyebrow">BANGUMI · 追番动态</p>
+                <h2>在追<b data-stat="anime">—</b>部番剧</h2>
+                <p class="gov-slide__desc">从日常、科幻到新番，番剧记录同步自 Bangumi。首页只挑选最近更新的几部，完整收藏可以前往 Bangumi 查看。</p>
+                <div class="gov-slide__actions">
+                  <a class="gov-btn gov-btn--red" data-bind-href="bangumiAnimeUrl" href="https://bgm.tv/" target="_blank" rel="noopener">查看追番列表</a>
+                  <a class="gov-btn" href="#bangumi">本页追番记录</a>
                 </div>
               </div>
-              <div class="media-item">
-                <div class="skeleton media-item__cover"></div>
-                <div class="media-item__main">
-                  <div class="skeleton" style="height: 13px; width: 76%"></div>
-                  <div class="skeleton" style="height: 10px; width: 50%"></div>
+            </article>
+
+            <article class="gov-slide gov-slide--3" data-slide="2" aria-hidden="true">
+              <div class="gov-slide__content">
+                <p class="gov-slide__eyebrow">STEAM · 游戏记录</p>
+                <h2>最近在玩<b data-stat="games">—</b>款游戏</h2>
+                <p class="gov-slide__desc">游戏时间来自 Steam 公开主页的最近游玩记录。目前常驻的是 CS2、Apex，以及刚上手不久的《异环》。</p>
+                <div class="gov-slide__actions">
+                  <a class="gov-btn gov-btn--red" data-bind-href="steamUrl" href="https://steamcommunity.com/id/jijijitian/" target="_blank" rel="noopener">Steam 主页</a>
+                  <a class="gov-btn" href="#games">本页游戏天地</a>
                 </div>
+              </div>
+            </article>
+
+            <div class="gov-carousel__controls">
+              <div class="gov-carousel__dots" role="tablist" aria-label="轮播图切换">
+                <button class="gov-dot is-active" type="button" data-goto="0" aria-label="第 1 张" aria-selected="true"></button>
+                <button class="gov-dot" type="button" data-goto="1" aria-label="第 2 张" aria-selected="false"></button>
+                <button class="gov-dot" type="button" data-goto="2" aria-label="第 3 张" aria-selected="false"></button>
+              </div>
+              <div class="gov-carousel__arrows">
+                <button class="gov-arrow" type="button" id="govPrev" aria-label="上一张">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 8 12l7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <button class="gov-arrow" type="button" id="govNext" aria-label="下一张">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
               </div>
             </div>
           </div>
-          <div class="tile__head" style="min-height: 0">
-            <span class="chip" id="animeCount">— 部在追</span>
-            <a class="link-more" data-bind-href="bangumiAnimeUrl" href="https://bgm.tv/" target="_blank" rel="noopener">
-              全部番剧
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-          </div>
-        </article>
 
-        <!-- 4. 游戏（Bangumi 游戏收藏） -->
-        <article class="tile tile--entertainment" data-reveal style="--reveal-delay: 180ms">
-          <div class="tile__head">
-            <span class="tile__title">
-              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.6 7h8.8a4.6 4.6 0 0 1 4.5 3.7l1 5.2a3 3 0 0 1-5.3 2.6L15 16H9l-1.6 2.5a3 3 0 0 1-5.3-2.6l1-5.2A4.6 4.6 0 0 1 7.6 7Z" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M8 10.5v3M6.5 12h3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="16" cy="11.3" r="1" fill="currentColor"/><circle cx="17.8" cy="13.3" r="1" fill="currentColor"/></svg>
-              Now playing
-            </span>
-            <a class="link-more" data-bind-href="steamUrl" href="https://steamcommunity.com/id/jijijitian/" target="_blank" rel="noopener">
-              Steam 主页
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-          </div>
-          <div class="tile__body">
-            <div class="media-list" id="gameList" aria-live="polite"></div>
-          </div>
-          <div class="tile__head" style="min-height: 0">
-            <span class="chip" id="gameCount">Steam · 最近在玩</span>
-          </div>
-        </article>
-
-        <!-- 5. 最近文章 -->
-        <article class="tile tile--posts" id="posts" data-reveal style="--reveal-delay: 240ms">
-          <div class="tile__head">
-            <span class="tile__title">
-              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h9.5L19 9v10.5H5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M14 4.5V9h5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M8 13h8M8 16.4h5.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
-              Latest notes
-            </span>
-            <a class="link-more" href="posts/">
-              全部文章
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-          </div>
-          <div class="tile__body">
-            <div class="post-list" id="postList" aria-live="polite">
-              <div class="post-row">
-                <span class="post-row__date skeleton" style="width: 74px; height: 11px"></span>
-                <span class="skeleton" style="height: 13px; width: 80%"></span>
-              </div>
-              <div class="post-row">
-                <span class="post-row__date skeleton" style="width: 74px; height: 11px"></span>
-                <span class="skeleton" style="height: 13px; width: 64%"></span>
+          <aside class="gov-panel gov-news" id="news" aria-label="要闻动态">
+            <div class="gov-panel__head">
+              <h2>要闻动态</h2>
+              <div class="gov-tabs" role="tablist" aria-label="动态分类">
+                <button class="gov-tab is-active" type="button" data-tab="news" role="tab" aria-selected="true">最新文章</button>
+                <button class="gov-tab" type="button" data-tab="now" role="tab" aria-selected="false">个人动态</button>
               </div>
             </div>
-          </div>
-        </article>
+            <div class="gov-news__body" id="govNewsBody" aria-live="polite">
+              <div class="gov-skeleton" style="width: 78%"></div>
+              <div class="gov-skeleton" style="width: 92%"></div>
+              <div class="gov-skeleton" style="width: 64%"></div>
+              <div class="gov-skeleton" style="width: 85%"></div>
+            </div>
+          </aside>
+        </section>
 
-        <!-- 6. 现在在做什么 -->
-        <article class="tile tile--status" id="now" data-reveal style="--reveal-delay: 300ms">
-          <div class="tile__head">
-            <span class="tile__title">
-              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 5 13h5l-1 9 8-11h-5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
-              Now
+        <!-- 服务入口 -->
+        <section class="gov-services" aria-label="常用服务">
+          <a class="gov-service" href="https://github.com/jijijitian" target="_blank" rel="noopener">
+            <span class="gov-service__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.48 2 2 6.58 2 12.24c0 4.53 2.87 8.37 6.84 9.72.5.1.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.63.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.9 1.57 2.34 1.12 2.91.86.09-.66.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.27 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.32 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.8-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.24C22 6.58 17.52 2 12 2Z"/></svg>
             </span>
-          </div>
-          <div class="now-list" data-bind-now="nowDoing"></div>
-          <p class="now-heart">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7.5-4.6-7.5-9.4A4.1 4.1 0 0 1 12 7.6a4.1 4.1 0 0 1 7.5 3C19.5 15.4 12 20 12 20Z" fill="currentColor"/></svg>
-            用喜欢的事填满每一天
-          </p>
-        </article>
+            <span class="gov-service__text"><strong>GitHub 主页</strong><span>代码与开源项目</span></span>
+          </a>
 
-        <!-- 7. 社交链接 -->
-        <article class="tile tile--social" data-reveal style="--reveal-delay: 360ms">
-          <div class="tile__head">
-            <span class="tile__title">
-              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.6" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="m16 16 4.2 4.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-              Find me
+          <a class="gov-service" data-bind-href="bangumiUrl" href="https://bgm.tv/" target="_blank" rel="noopener">
+            <span class="gov-service__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.6" y="4.4" width="18.8" height="15.2" rx="3.4" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M7 8h3.4a2.2 2.2 0 0 1 0 4.4H7Zm0 4.4h3.8a2.2 2.2 0 0 1 0 4.4H7Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="17.2" cy="11.2" r="1.35" fill="currentColor"/></svg>
             </span>
+            <span class="gov-service__text"><strong>Bangumi 收藏</strong><span>追番与收藏记录</span></span>
+          </a>
+
+          <a class="gov-service" data-bind-href="steamUrl" href="https://steamcommunity.com/id/jijijitian/" target="_blank" rel="noopener">
+            <span class="gov-service__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.2 7.6h7.6a4.4 4.4 0 0 1 4.3 3.6l.9 4.7a2.9 2.9 0 0 1-5.1 2.5L14.7 17H9.3l-1.2 1.4a2.9 2.9 0 0 1-5.1-2.5l.9-4.7a4.4 4.4 0 0 1 4.3-3.6Z" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M7.8 11.2v2.8M6.4 12.6h2.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="16.2" cy="11.8" r=".95" fill="currentColor"/><circle cx="17.8" cy="13.8" r=".95" fill="currentColor"/></svg>
+            </span>
+            <span class="gov-service__text"><strong>Steam 档案</strong><span>最近在玩的游戏</span></span>
+          </a>
+
+          <a class="gov-service" href="feed.xml">
+            <span class="gov-service__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19h.01" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/><path d="M4.4 10.6a9 9 0 0 1 9 9" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><path d="M4.4 5.4A14.2 14.2 0 0 1 18.6 19.6" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>
+            </span>
+            <span class="gov-service__text"><strong>RSS 订阅</strong><span>文章更新自动推送</span></span>
+          </a>
+        </section>
+
+        <!-- 追番 / 游戏 -->
+        <section class="gov-section gov-columns" aria-label="追番与游戏">
+          <div class="gov-panel gov-panel--pad gov-media-panel" id="bangumi">
+            <div class="gov-panel__head">
+              <h2>追番记录</h2>
+              <a class="gov-more" data-bind-href="bangumiAnimeUrl" href="https://bgm.tv/" target="_blank" rel="noopener">全部番剧 +</a>
+            </div>
+            <p class="gov-panel__sub">
+              <span class="gov-source"><span class="gov-dot-live"></span> Bangumi</span>
+              <span id="animeCount">加载中</span>
+              <span>· 只展示最近更新的作品</span>
+            </p>
+            <div class="gov-media-list" id="animeList" aria-live="polite"></div>
           </div>
-          <div class="tile__body">
-            <div class="social-grid" data-bind-social="socials"></div>
+
+          <div class="gov-panel gov-panel--pad gov-media-panel" id="games">
+            <div class="gov-panel__head">
+              <h2>游戏天地</h2>
+              <a class="gov-more" data-bind-href="steamUrl" href="https://steamcommunity.com/id/jijijitian/" target="_blank" rel="noopener">Steam 主页 +</a>
+            </div>
+            <p class="gov-panel__sub">
+              <span class="gov-source"><span class="gov-dot-live"></span> Steam</span>
+              <span id="gameCount">加载中</span>
+              <span>· 最近游玩记录</span>
+            </p>
+            <div class="gov-media-list" id="gameList" aria-live="polite"></div>
           </div>
-        </article>
+        </section>
 
-        <!-- 8. 一句话 -->
-        <article class="tile tile--quote" data-reveal style="--reveal-delay: 420ms">
-          <p class="quote__mark" aria-hidden="true">“</p>
-          <p class="quote__text">把生活切成小块，每一块都做成喜欢的样子。</p>
-          <p class="quote__from">— 本站手记</p>
-        </article>
+        <!-- 概况 / 数据 / 联系 -->
+        <section class="gov-section gov-columns gov-columns--three" aria-label="个人概况与数据">
+          <div class="gov-panel gov-panel--pad gov-about" id="about">
+            <div class="gov-panel__head">
+              <h2>个人概况</h2>
+            </div>
+            <p data-bind="bio">这里记录我喜欢的东西：番剧、游戏、还有折腾出来的小玩意儿。</p>
+            <dl>
+              <dt>称呼</dt><dd data-bind="name">血小板埋埋</dd>
+              <dt>所在地</dt><dd data-bind="location">苏州 · 江苏</dd>
+              <dt>当前状态</dt><dd data-bind="status">保持好奇，缓慢生长</dd>
+            </dl>
+            <div class="gov-tags">
+              <span class="gov-tag">前端</span>
+              <span class="gov-tag">Markdown</span>
+              <span class="gov-tag">番剧</span>
+              <span class="gov-tag">游戏</span>
+              <span class="gov-tag">折腾</span>
+            </div>
+          </div>
 
-        <!-- 9. 写文章 CTA -->
-        <article class="tile tile--cta" data-reveal style="--reveal-delay: 480ms">
-          <h3>写一篇新文章</h3>
-          <p>把 <code>.md</code> 丢进 <code>posts/</code>，提交后 GitHub Actions 自动渲染并上线。</p>
-          <a class="btn btn--primary" href="posts/">进入文章列表</a>
-        </article>
+          <div class="gov-panel gov-panel--pad gov-stats">
+            <div class="gov-panel__head">
+              <h2>数据公开</h2>
+            </div>
+            <div class="gov-stat-grid">
+              <div class="gov-stat"><strong data-stat="posts">—</strong><span>公开文章（篇）</span></div>
+              <div class="gov-stat"><strong data-stat="anime">—</strong><span>在追番剧（部）</span></div>
+              <div class="gov-stat"><strong data-stat="games">—</strong><span>最近在玩（款）</span></div>
+              <div class="gov-stat"><strong data-stat="days">—</strong><span>建站天数（天）</span></div>
+            </div>
+            <p class="gov-panel__sub">数据来自本站文章清单、Bangumi 与 Steam，更新以页面加载时为准。</p>
+          </div>
 
-      </section>
+          <div class="gov-panel gov-panel--pad gov-contact" id="contact">
+            <div class="gov-panel__head">
+              <h2>互动交流</h2>
+            </div>
+            <p>欢迎通过 GitHub 或邮件交流，也欢迎在 Bangumi 或 Steam 加个好友。</p>
+            <div class="gov-contact__links">
+              <a class="gov-contact__link" href="https://github.com/jijijitian" target="_blank" rel="noopener">
+                <span>GitHub</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+              <a class="gov-contact__link" href="mailto:jihaotian0627@foxmail.com">
+                <span>电子邮件</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+              <a class="gov-contact__link" data-bind-href="bangumiUrl" href="https://bgm.tv/" target="_blank" rel="noopener">
+                <span>Bangumi</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+              <a class="gov-contact__link" href="feed.xml">
+                <span>RSS 订阅</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- 文章公开 -->
+        <section class="gov-section gov-panel gov-panel--pad" id="posts" aria-label="文章公开">
+          <div class="gov-panel__head">
+            <h2>文章公开</h2>
+            <a class="gov-more" href="posts/">全部文章 +</a>
+          </div>
+          <p class="gov-panel__sub">在本地写 Markdown，提交到 GitHub 后由 Actions 自动渲染发布。</p>
+          <div class="gov-post-list" id="postList" aria-live="polite">
+            <div class="gov-skeleton" style="width: 70%"></div>
+            <div class="gov-skeleton" style="width: 86%"></div>
+            <div class="gov-skeleton" style="width: 58%"></div>
+          </div>
+        </section>
+      </div>
     </main>
 
-    <!-- ================= 页脚 ================= -->
-    <footer class="site-footer">
-      <div class="wrap">
-        <p>© <span id="year">2026</span> <span data-bind="fullName">血小板埋埋</span> · <span data-bind="siteTitle">血小板埋埋的小站</span></p>
-        <div class="footer-links">
-          <a href="posts/">文章</a>
-          <a href="feed.xml">RSS</a>
-          <a data-bind-href="bangumiUrl" href="https://bgm.tv/" target="_blank" rel="noopener">Bangumi</a>
-          <a href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
+    <footer class="gov-footer">
+      <div class="gov-wrap">
+        <div>
+          <div class="gov-footer__links">
+            <a href="#about">个人概况</a>
+            <a href="posts/">文章公开</a>
+            <a href="feed.xml">RSS</a>
+            <a href="https://github.com/jijijitian" target="_blank" rel="noopener">GitHub</a>
+            <a data-bind-href="bangumiUrl" href="https://bgm.tv/" target="_blank" rel="noopener">Bangumi</a>
+          </div>
+          <p class="gov-footer__note">本站为个人网站，非政府官方网站；页面版式仅为个人审美尝试，不代表任何机构。</p>
+          <p>© <span id="year">2026</span> 血小板埋埋 · 由 GitHub Pages 提供托管</p>
+        </div>
+        <div class="gov-footer__copy">
+          <p>保持好奇，缓慢生长</p>
+          <p>苏州 · 江苏</p>
         </div>
       </div>
     </footer>
+
+    <button class="gov-top" id="govTop" type="button" aria-label="返回顶部">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V6M6 12l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
 
     <script src="assets/js/config.js"></script>
     <script src="assets/js/site.js"></script>
     <script src="assets/js/bangumi.js"></script>
     <script src="assets/js/steam.js"></script>
     <script src="assets/js/posts.js"></script>
+    <script src="assets/js/gov.js"></script>
   </body>
 </html>

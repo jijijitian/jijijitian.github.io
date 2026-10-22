@@ -9,10 +9,11 @@ window.SITE_CONFIG = {
   fullName: "血小板埋埋", // 全名，页脚用
   handle: "@jijijitian", // 社交账号
   avatar: "assets/img/avatar.png", // 头像，可换成自己的图片
-  siteTitle: "血小板埋埋的小站", // 浏览器标签 / 页脚
-  description: "一个关于番剧、游戏和代码的个人角落。",
+  siteTitle: "血小板埋埋的个人门户", // 浏览器标签 / 页脚
+  description: "以个人之名，记录番剧、游戏与代码的日常门户。",
   url: "https://jijijitian.github.io/", // 部署后的线上地址（RSS / sitemap 用）
   lang: "zh-CN",
+  startDate: "2026-08-20", // 用于首页「建站天数」
 
   /* ---------- 首屏 ---------- */
   greeting: "你好，我是",

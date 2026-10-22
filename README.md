@@ -1,6 +1,8 @@
-# Bento 个人主页
+# 政务风个人门户
 
-一个可以直接放到 GitHub Pages 上的静态个人主页：**Bento Grid 布局**、**Bangumi 追番/游戏联动**、**Markdown 自动构建成文章**，零第三方依赖、零 `npm install`。
+一个可以直接放到 GitHub Pages 上的静态个人主页：**政务门户风格**、**Bangumi 追番 / Steam 游戏联动**、**Markdown 自动构建成文章**，零第三方依赖、零 `npm install`。
+
+> 视觉上参考了政府门户的信息组织方式（蓝白配色、红色强调、宋体标题、密集列表），但本站是**个人网站，非政府官方网站**，页脚有明确声明。
 
 ![首页预览](assets/img/preview.png)
 
@@ -8,7 +10,8 @@
 
 | 功能 | 说明 |
 | --- | --- |
-| Bento Grid 首页 | 12 列网格，卡片大小即信息层级，深 / 浅色双主题 |
+| 政务风首页 | 蓝白主色、红色强调、宋体标题、纵向信息条、轮播要闻与数据公开 |
+| 长者版 | 顶栏可一键放大字号，方便阅读 |
 | Bangumi 联动 | 实时拉取「在看」的番剧，含封面、评分、进度条；接口失败自动回退本地快照；默认过滤里番/R18 |
 | Steam 联动 | 构建时解析 Steam 公开主页，展示「最近在玩」的游戏、总时长和最近游玩日期 |
 | Markdown 博客 | 在 `posts/` 放一个 `.md`，推送后由 Actions 自动渲染成文章页 |
@@ -183,15 +186,15 @@ Windows 上如果 `node` 不在 PATH，可以用完整路径执行：
 
 ```
 bento-home/
-├─ index.html               首页（Bento Grid）
+├─ index.html               首页（政务门户风）
 ├─ 404.html                 构建时生成
 ├─ posts/                   ← 你只在这里写 Markdown
 │  ├─ hello-markdown.md     示例文章
 │  └─ *.md
 ├─ assets/
-│  ├─ css/  base.css · home.css · article.css
-│  ├─ js/   config.js · site.js · bangumi.js · posts.js · article.js · archive.js
-│  ├─ img/  avatar.png · og-cover.png · demo/（示例封面）
+│  ├─ css/  base.css · gov.css · home.css · article.css
+│  ├─ js/   config.js · site.js · gov.js · bangumi.js · steam.js · posts.js · article.js · archive.js
+│  ├─ img/  avatar.png · og-cover.png · gov-skyline.svg · demo/（示例封面）
 │  └─ data/                 Bangumi / Steam 快照（同步后生成）
 ├─ scripts/
 │  ├─ build.mjs             Markdown → 站点（核心）

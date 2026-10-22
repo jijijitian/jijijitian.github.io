@@ -73,8 +73,16 @@
       apply();
     });
 
-    // 支持 ?tag=xxx 直接定位
-    const urlTag = new URLSearchParams(location.search).get("tag");
+    // 支持 ?q=关键词 与 ?tag=xxx 直接定位
+    const params = new URLSearchParams(location.search);
+    const urlQ = (params.get("q") || "").trim();
+    if (urlQ) {
+      keyword = urlQ.toLowerCase();
+      if (search) search.value = urlQ;
+      shown = PER_PAGE;
+    }
+
+    const urlTag = params.get("tag");
     if (urlTag) {
       const btn = filters.find((b) => b.dataset.tag === urlTag);
       if (btn) btn.click();
