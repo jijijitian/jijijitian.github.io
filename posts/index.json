@@ -1,0 +1,84 @@
+[
+  {
+    "slug": "hello-markdown",
+    "title": "用 Markdown 写文章的完整流程",
+    "date": "2026-10-18T12:00:00.000Z",
+    "dateText": "2026 年 10 月 18 日",
+    "dateShort": "2026.10.18",
+    "tags": [
+      "教程",
+      "Markdown",
+      "GitHub"
+    ],
+    "summary": "从新建一个 .md 文件，到 GitHub Actions 自动渲染上线，整个流程只需要三次操作。",
+    "cover": "",
+    "minutes": 2,
+    "url": "posts/hello-markdown.html",
+    "draft": false
+  },
+  {
+    "slug": "anime-2026-autumn",
+    "title": "2026 秋番追番清单",
+    "date": "2026-10-12T12:00:00.000Z",
+    "dateText": "2026 年 10 月 12 日",
+    "dateShort": "2026.10.12",
+    "tags": [
+      "番剧",
+      "杂谈"
+    ],
+    "summary": "这一季挑了六部，目前看下来最惊喜的是一部没怎么宣传的原创动画。",
+    "cover": "",
+    "minutes": 1,
+    "url": "posts/anime-2026-autumn.html",
+    "draft": false
+  },
+  {
+    "slug": "bento-grid-notes",
+    "title": "把个人主页做成一块 Bento 便当",
+    "date": "2026-09-28T12:00:00.000Z",
+    "dateText": "2026 年 9 月 28 日",
+    "dateShort": "2026.09.28",
+    "tags": [
+      "设计",
+      "前端"
+    ],
+    "summary": "为什么我放弃了单栏博客，改用一张张可以自由组合的「格子」来介绍自己。",
+    "cover": "",
+    "minutes": 1,
+    "url": "posts/bento-grid-notes.html",
+    "draft": false
+  },
+  {
+    "slug": "stardew-notes",
+    "title": "星露谷物语新农场 100 小时",
+    "date": "2026-09-06T12:00:00.000Z",
+    "dateText": "2026 年 9 月 6 日",
+    "dateShort": "2026.09.06",
+    "tags": [
+      "游戏",
+      "日志"
+    ],
+    "summary": "第二个存档，这次不赶进度，只种自己喜欢的作物。",
+    "cover": "",
+    "minutes": 1,
+    "url": "posts/stardew-notes.html",
+    "draft": false
+  },
+  {
+    "slug": "deploy-pipeline",
+    "title": "这个站点是怎么自动部署的",
+    "date": "2026-08-20T12:00:00.000Z",
+    "dateText": "2026 年 8 月 20 日",
+    "dateShort": "2026.08.20",
+    "tags": [
+      "教程",
+      "GitHub",
+      "自动化"
+    ],
+    "summary": "一次推送触发构建，三十秒后 GitHub Pages 上线，整个过程不需要本地安装任何环境。",
+    "cover": "",
+    "minutes": 1,
+    "url": "posts/deploy-pipeline.html",
+    "draft": false
+  }
+]

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
+  <title type="text">血小板埋埋的个人门户</title>
+  <subtitle type="text">以个人之名，记录番剧、游戏与代码的日常门户。</subtitle>
+  <link rel="self" type="application/atom+xml" href="https://jijijitian.github.io/feed.xml"/>
+  <link rel="alternate" type="text/html" href="https://jijijitian.github.io/"/>
+  <id>https://jijijitian.github.io/</id>
+  <updated>2026-10-18T12:00:00.000Z</updated>
+  <author>
+    <name>血小板埋埋</name>
+    <uri>https://jijijitian.github.io/</uri>
+  </author>
+    <entry>
+      <title type="text">用 Markdown 写文章的完整流程</title>
+      <link rel="alternate" type="text/html" href="https://jijijitian.github.io/posts/hello-markdown.html"/>
+      <id>https://jijijitian.github.io/posts/hello-markdown.html</id>
+      <updated>2026-10-18T12:00:00.000Z</updated>
+      <published>2026-10-18T12:00:00.000Z</published>
+      <summary type="html">从新建一个 .md 文件，到 GitHub Actions 自动渲染上线，整个流程只需要三次操作。</summary>
+      <category term="教程"/>
+      <category term="Markdown"/>
+      <category term="GitHub"/>
+    </entry>
+    <entry>
+      <title type="text">2026 秋番追番清单</title>
+      <link rel="alternate" type="text/html" href="https://jijijitian.github.io/posts/anime-2026-autumn.html"/>
+      <id>https://jijijitian.github.io/posts/anime-2026-autumn.html</id>
+      <updated>2026-10-12T12:00:00.000Z</updated>
+      <published>2026-10-12T12:00:00.000Z</published>
+      <summary type="html">这一季挑了六部，目前看下来最惊喜的是一部没怎么宣传的原创动画。</summary>
+      <category term="番剧"/>
+      <category term="杂谈"/>
+    </entry>
+    <entry>
+      <title type="text">把个人主页做成一块 Bento 便当</title>
+      <link rel="alternate" type="text/html" href="https://jijijitian.github.io/posts/bento-grid-notes.html"/>
+      <id>https://jijijitian.github.io/posts/bento-grid-notes.html</id>
+      <updated>2026-09-28T12:00:00.000Z</updated>
+      <published>2026-09-28T12:00:00.000Z</published>
+      <summary type="html">为什么我放弃了单栏博客，改用一张张可以自由组合的「格子」来介绍自己。</summary>
+      <category term="设计"/>
+      <category term="前端"/>
+    </entry>
+    <entry>
+      <title type="text">星露谷物语新农场 100 小时</title>
+      <link rel="alternate" type="text/html" href="https://jijijitian.github.io/posts/stardew-notes.html"/>
+      <id>https://jijijitian.github.io/posts/stardew-notes.html</id>
+      <updated>2026-09-06T12:00:00.000Z</updated>
+      <published>2026-09-06T12:00:00.000Z</published>
+      <summary type="html">第二个存档，这次不赶进度，只种自己喜欢的作物。</summary>
+      <category term="游戏"/>
+      <category term="日志"/>
+    </entry>
+    <entry>
+      <title type="text">这个站点是怎么自动部署的</title>
+      <link rel="alternate" type="text/html" href="https://jijijitian.github.io/posts/deploy-pipeline.html"/>
+      <id>https://jijijitian.github.io/posts/deploy-pipeline.html</id>
+      <updated>2026-08-20T12:00:00.000Z</updated>
+      <published>2026-08-20T12:00:00.000Z</published>
+      <summary type="html">一次推送触发构建，三十秒后 GitHub Pages 上线，整个过程不需要本地安装任何环境。</summary>
+      <category term="教程"/>
+      <category term="GitHub"/>
+      <category term="自动化"/>
+    </entry>
+</feed>

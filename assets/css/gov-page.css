@@ -1,0 +1,448 @@
+/* ==========================================================================
+   gov-page.css —— 文章页 / 文章列表 / 404 的政务风子页样式
+   依赖 base.css + gov.css + article.css
+   ========================================================================== */
+
+body.page-article,
+body.page-archive,
+body.page-404 {
+  background: var(--gov-bg);
+  color: var(--gov-text);
+}
+
+/* ---------------- 子页顶部 ---------------- */
+.gsub-top {
+  background: #f6f7f9;
+  border-bottom: 1px solid #e4e8ec;
+  font-size: 12px;
+  color: #68727d;
+}
+
+.gsub-top .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  min-height: 34px;
+}
+
+.gsub-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 8px;
+  border: 1px solid #d5dce3;
+  background: #fff;
+  color: #6d7782;
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+.gsub-toplinks {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+}
+
+.gsub-toplinks a {
+  color: #59636e;
+  font-size: 12px;
+}
+
+.gsub-toplinks a:hover {
+  color: var(--gov-red);
+}
+
+.gsub-head {
+  background: #fff;
+  border-bottom: 3px solid var(--gov-blue);
+}
+
+.gsub-head .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 86px;
+  padding: 12px 0;
+}
+
+.gsub-brand {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  min-width: 0;
+}
+
+.gsub-seal {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--gov-red);
+  color: #fff;
+  font-family: var(--gov-serif);
+  font-size: 22px;
+  border: 2px double #f2c9c9;
+  transform: rotate(-6deg);
+}
+
+.gsub-brand__text {
+  min-width: 0;
+}
+
+.gsub-brand__text strong {
+  display: block;
+  font-family: var(--gov-serif);
+  font-size: 24px;
+  line-height: 1.3;
+  letter-spacing: 0.03em;
+  color: #1c2733;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gsub-brand__text em {
+  display: block;
+  margin-top: 2px;
+  font-style: normal;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: #8a949f;
+}
+
+.gsub-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  font-size: 14px;
+}
+
+.gsub-nav a {
+  color: #5b6672;
+  padding: 6px 0;
+  border-bottom: 2px solid transparent;
+}
+
+.gsub-nav a:hover,
+.gsub-nav a.is-active {
+  color: var(--gov-red);
+  border-bottom-color: var(--gov-red);
+}
+
+/* ---------------- 子页页脚 ---------------- */
+.gsub-footer {
+  margin-top: 42px;
+  padding: 24px 0 28px;
+  background: var(--gov-blue-dark);
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 12px;
+  line-height: 1.9;
+}
+
+.gsub-footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin-bottom: 6px;
+}
+
+.gsub-footer a {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.gsub-footer a:hover {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.gsub-footer__note {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* ---------------- 文章页 ---------------- */
+.page-article .article-layout {
+  padding-top: 30px;
+}
+
+.page-article .post {
+  max-width: 980px;
+}
+
+.page-article .breadcrumb {
+  color: #8a949f;
+  margin-bottom: 18px;
+}
+
+.page-article .breadcrumb a:hover {
+  color: var(--gov-red);
+}
+
+.page-article .post__header {
+  border-bottom: 1px solid var(--gov-line);
+  padding-bottom: 24px;
+  margin-bottom: 28px;
+}
+
+.page-article .post__title {
+  font-family: var(--gov-serif);
+  color: #1b2733;
+  letter-spacing: 0.01em;
+}
+
+.page-article .post__summary {
+  color: #5f6a75;
+}
+
+.page-article .post__meta {
+  color: #8a949f;
+}
+
+.page-article .post__tags .chip,
+.page-article .post__footer .chip {
+  border-radius: 0;
+  background: #fff;
+  border-color: var(--gov-line);
+  color: #6c7782;
+}
+
+.page-article .post__cover {
+  border-radius: 0;
+  border-color: var(--gov-line);
+}
+
+.page-article .prose {
+  color: #3f4852;
+}
+
+.page-article .prose h1,
+.page-article .prose h2,
+.page-article .prose h3,
+.page-article .prose h4 {
+  font-family: var(--gov-serif);
+  color: #1f2a36;
+}
+
+.page-article .prose h2 {
+  padding: 0 0 0 12px;
+  border-left: 4px solid var(--gov-red);
+  border-bottom: 0;
+}
+
+.page-article .prose h3 {
+  padding-left: 10px;
+  border-left: 3px solid var(--gov-blue);
+}
+
+.page-article .prose a {
+  color: var(--gov-blue);
+  text-decoration-color: rgba(23, 85, 141, 0.35);
+}
+
+.page-article .prose a:hover {
+  color: var(--gov-red);
+}
+
+.page-article .prose blockquote {
+  border-left-color: var(--gov-red);
+  background: #fbf7f7;
+  border-radius: 0;
+}
+
+.page-article .prose code {
+  background: #eef3f8;
+  color: var(--gov-blue-dark);
+  border-color: #dfe8f1;
+  border-radius: 0;
+}
+
+.page-article .prose .code-block {
+  border-radius: 0;
+  border-color: #243447;
+}
+
+.page-article .prose .table-wrap {
+  border-radius: 0;
+}
+
+.page-article .prose thead th {
+  background: #f4f7fa;
+}
+
+.page-article .prose .figure img {
+  border-radius: 0;
+}
+
+.page-article .prose .anchor {
+  color: #9aa4ae;
+}
+
+.page-article .toc {
+  border-left-color: var(--gov-line);
+}
+
+.page-article .toc__title {
+  color: #8a949f;
+}
+
+.page-article .toc__item a {
+  color: #6f7a85;
+}
+
+.page-article .toc__item a.is-active {
+  color: var(--gov-red);
+}
+
+.page-article .post__footer {
+  border-top-color: var(--gov-line);
+}
+
+.page-article .post-nav__link {
+  border-radius: 0;
+  background: #fff;
+  border-color: var(--gov-line);
+}
+
+.page-article .post-nav__link:hover {
+  border-color: var(--gov-blue);
+}
+
+.page-article .post__footer .link-more {
+  color: var(--gov-blue);
+}
+
+/* ---------------- 文章列表 ---------------- */
+.page-archive .archive {
+  max-width: 960px;
+  padding-top: 36px;
+}
+
+.page-archive .archive__eyebrow {
+  color: var(--gov-red);
+}
+
+.page-archive .archive__title {
+  background: none;
+  -webkit-text-fill-color: var(--gov-blue-dark);
+  color: var(--gov-blue-dark);
+  font-family: var(--gov-serif);
+}
+
+.page-archive .archive__desc {
+  color: #5f6a75;
+}
+
+.page-archive .archive__desc strong {
+  color: var(--gov-red);
+}
+
+.page-archive .archive__search {
+  border-radius: 0;
+  background: #fff;
+}
+
+.page-archive .filter__btn {
+  border-radius: 0;
+}
+
+.page-archive .filter__btn.is-active {
+  color: var(--gov-red);
+  background: #fbecec;
+  border-color: rgba(176, 31, 36, 0.35);
+}
+
+.page-archive .post-card {
+  border-radius: 0;
+  background: #fff;
+}
+
+.page-archive .post-card:hover {
+  border-color: #b9c9d8;
+  box-shadow: 0 4px 14px rgba(16, 50, 84, 0.08);
+}
+
+.page-archive .post-card__title {
+  font-family: var(--gov-serif);
+  color: #1f2a36;
+}
+
+.page-archive .post-card:hover .post-card__title {
+  color: var(--gov-red);
+}
+
+.page-archive .post-card .chip {
+  border-radius: 0;
+  background: #fff;
+}
+
+.page-archive .archive__more {
+  border-radius: 0;
+}
+
+.page-archive .archive__empty {
+  color: #8a949f;
+}
+
+/* ---------------- 404 ---------------- */
+.page-404 .not-found {
+  min-height: 62vh;
+}
+
+.page-404 .not-found__code {
+  font-family: var(--gov-serif);
+  background: none;
+  -webkit-text-fill-color: var(--gov-red);
+  color: var(--gov-red);
+}
+
+.page-404 .not-found h1 {
+  font-family: var(--gov-serif);
+  color: #1f2a36;
+}
+
+.page-404 .btn {
+  border-radius: 0;
+}
+
+/* ---------------- 响应式 ---------------- */
+@media (max-width: 760px) {
+  .gsub-top .wrap {
+    justify-content: center;
+    min-height: 32px;
+  }
+
+  .gsub-toplinks {
+    display: none;
+  }
+
+  .gsub-head .wrap {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    min-height: 0;
+    padding: 12px 0;
+  }
+
+  .gsub-brand__text strong {
+    font-size: 20px;
+  }
+
+  .gsub-seal {
+    width: 38px;
+    height: 38px;
+    font-size: 19px;
+  }
+
+  .gsub-nav {
+    gap: 4px 14px;
+    font-size: 13px;
+  }
+
+  .gsub-footer {
+    margin-top: 28px;
+  }
+}

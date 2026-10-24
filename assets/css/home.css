@@ -1,0 +1,802 @@
+/* ==========================================================================
+   home.css —— Bento Grid 首页布局
+   桌面用 grid-template-areas 显式排布 12 列，平板 / 手机逐级降列
+   ========================================================================== */
+
+.bento {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-areas:
+    "intro intro intro intro intro intro intro clock clock clock clock clock"
+    "intro intro intro intro intro intro intro anime anime anime anime anime"
+    "games games games games posts posts posts posts now now now now"
+    "social social social social quote quote quote quote cta cta cta cta";
+  gap: var(--gap);
+  padding: 26px 0 8px;
+  align-items: stretch;
+}
+
+/* ---------- 基础卡片 ---------- */
+.tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  min-width: 0;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: var(--card);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
+}
+
+/* 鼠标跟随的高光 */
+.tile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0;
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 0%),
+    rgba(139, 124, 255, 0.12),
+    transparent 62%
+  );
+  transition: opacity 0.35s ease;
+}
+
+.tile:hover {
+  transform: translateY(-3px);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-lift);
+  background: var(--card-hover);
+}
+
+.tile:hover::before {
+  opacity: 1;
+}
+
+/* 流光的强调描边（介绍卡使用） */
+@media (prefers-reduced-motion: no-preference) {
+  .tile--glow::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    z-index: -2;
+    border-radius: inherit;
+    background: conic-gradient(
+      from var(--angle, 0deg),
+      rgba(139, 124, 255, 0.45),
+      rgba(79, 216, 232, 0.3),
+      rgba(255, 143, 177, 0.25),
+      rgba(139, 124, 255, 0.45)
+    );
+    opacity: 0.3;
+    animation: spin-slow 16s linear infinite;
+  }
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes spin-slow {
+  to {
+    --angle: 360deg;
+  }
+}
+
+.tile__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 22px;
+  flex: none;
+}
+
+.tile__title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tile__title .icon {
+  width: 14px;
+  height: 14px;
+  color: var(--accent-2);
+  flex: none;
+}
+
+.tile__body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ---------- 1. 个人介绍 ---------- */
+.tile--intro {
+  grid-area: intro;
+  padding: 26px;
+  background:
+    radial-gradient(560px 260px at 100% 0%, rgba(139, 124, 255, 0.22), transparent 68%),
+    radial-gradient(420px 260px at 0% 100%, rgba(79, 216, 232, 0.12), transparent 66%),
+    var(--card);
+  justify-content: space-between;
+}
+
+.tile--intro .tile__body {
+  flex: 1;
+  justify-content: center;
+  gap: 14px;
+  padding: 10px 0;
+}
+
+.intro__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.intro__hello {
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.intro__name {
+  font-size: clamp(2.3rem, 4.6vw, 3.4rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  margin-top: 4px;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  width: fit-content;
+}
+
+.intro__headline {
+  font-size: clamp(1rem, 1.5vw, 1.16rem);
+  font-weight: 650;
+  color: var(--text);
+  max-width: 34ch;
+  line-height: 1.5;
+}
+
+.intro__avatar {
+  width: 84px;
+  height: 84px;
+  border-radius: 22px;
+  object-fit: cover;
+  border: 1px solid var(--border-strong);
+  box-shadow: 0 14px 30px -16px rgba(0, 0, 0, 0.9);
+  flex: none;
+}
+
+.intro__bio {
+  font-size: 0.92rem;
+  color: var(--text-soft);
+  max-width: 52ch;
+  line-height: 1.75;
+}
+
+.intro__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.intro__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 18px;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.intro__meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.intro__meta .icon {
+  width: 14px;
+  height: 14px;
+  color: var(--accent-3);
+}
+
+.intro__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* ---------- 2. 本地时钟 ---------- */
+.tile--clock {
+  grid-area: clock;
+}
+
+.clock {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: 100%;
+  flex-wrap: wrap;
+}
+
+.clock__time {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(1.9rem, 3.4vw, 2.7rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+  background: linear-gradient(180deg, var(--text), var(--muted));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.clock__time small {
+  font-size: 0.42em;
+  -webkit-text-fill-color: var(--accent-2);
+  margin-left: 6px;
+  letter-spacing: 0.04em;
+}
+
+.clock__meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+  font-size: 0.76rem;
+  color: var(--muted);
+  text-align: right;
+  line-height: 1.5;
+}
+
+.clock__date {
+  color: var(--text-soft);
+}
+
+.clock__weather {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.clock__weather .icon {
+  width: 13px;
+  height: 13px;
+  color: var(--accent-4);
+}
+
+/* ---------- 3. 正在追的番剧 ---------- */
+.tile--anime {
+  grid-area: anime;
+}
+
+/* ---------- 4/5. 番剧 / 游戏明细 ---------- */
+.tile--entertainment {
+  grid-area: games;
+  padding: 18px;
+}
+
+.media-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-height: 0;
+}
+
+.media-item {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 7px;
+  margin: -3px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.media-item:hover {
+  background: rgba(255, 255, 255, 0.045);
+  border-color: var(--border);
+  transform: translateX(2px);
+}
+
+:root[data-theme="light"] .media-item:hover {
+  background: rgba(17, 20, 28, 0.035);
+}
+
+.media-item__cover {
+  width: 42px;
+  height: 58px;
+  border-radius: 8px;
+  object-fit: cover;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  flex: none;
+}
+
+.media-item__main {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.media-item__name {
+  font-size: 0.84rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--text);
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.media-item__sub {
+  font-size: 0.7rem;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.media-item__sub .score {
+  color: var(--accent-4);
+  font-family: var(--font-mono);
+  font-weight: 600;
+}
+
+.media-item__progress {
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  margin-top: 3px;
+  display: block;
+}
+
+:root[data-theme="light"] .media-item__progress {
+  background: rgba(17, 20, 28, 0.08);
+}
+
+.media-item__progress i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--grad);
+  transition: width 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.media-item__ep {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+  white-space: nowrap;
+  align-self: flex-start;
+  padding-top: 4px;
+}
+
+.media-item.is-now .media-item__cover {
+  box-shadow: 0 0 0 1px rgba(139, 124, 255, 0.5), 0 10px 22px -14px rgba(139, 124, 255, 0.8);
+}
+
+.media-item.is-now .media-item__progress i {
+  background: linear-gradient(90deg, var(--accent-2), var(--accent));
+}
+
+.media-empty {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  text-align: center;
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: var(--muted);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-sm);
+}
+
+/* ---------- 6. 最近文章 ---------- */
+.tile--posts {
+  grid-area: posts;
+}
+
+.post-list {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.post-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 12px;
+  padding: 10px;
+  margin: 0 -10px;
+  border-radius: var(--radius-sm);
+  transition: background 0.2s ease;
+}
+
+.post-row + .post-row {
+  border-top: 1px solid var(--border);
+}
+
+.post-row:hover {
+  background: rgba(255, 255, 255, 0.045);
+}
+
+:root[data-theme="light"] .post-row:hover {
+  background: rgba(17, 20, 28, 0.035);
+}
+
+.post-row__date {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--faint);
+  white-space: nowrap;
+}
+
+.post-row__title {
+  font-size: 0.88rem;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.post-row:hover .post-row__title {
+  color: var(--accent);
+}
+
+.post-row__tag {
+  font-size: 0.66rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* ---------- 7. 现在 ---------- */
+.tile--status {
+  grid-area: now;
+  background:
+    radial-gradient(320px 200px at 100% 0%, rgba(154, 230, 110, 0.12), transparent 70%),
+    var(--card);
+}
+
+.now-list {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  flex: 1;
+  justify-content: center;
+}
+
+.now-item {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.now-item__emoji {
+  font-size: 1rem;
+  line-height: 1.3;
+  filter: saturate(120%);
+}
+
+.now-item__title {
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.now-item__note {
+  font-size: 0.7rem;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.now-heart {
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.7rem;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+  padding-top: 10px;
+}
+
+.now-heart svg {
+  width: 13px;
+  height: 13px;
+  color: var(--accent-pink);
+  flex: none;
+}
+
+/* ---------- 8. 社交 ---------- */
+.tile--social {
+  grid-area: social;
+}
+
+.social-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  flex: 1;
+  align-content: center;
+}
+
+/* 5 个链接时让最后一个占满整行，避免出现半个空格子 */
+.social-grid > .social-link:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 11px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.025);
+  font-size: 0.74rem;
+  color: var(--muted);
+  transition: transform 0.25s ease, color 0.25s ease, border-color 0.25s ease,
+    background 0.25s ease;
+  min-width: 0;
+}
+
+:root[data-theme="light"] .social-link {
+  background: rgba(17, 20, 28, 0.025);
+}
+
+.social-link svg {
+  width: 17px;
+  height: 17px;
+  flex: none;
+  transition: transform 0.25s ease;
+}
+
+.social-link span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.social-link:hover {
+  color: var(--text);
+  border-color: var(--ring);
+  background: var(--grad-soft);
+  transform: translateY(-2px);
+}
+
+.social-link:hover svg {
+  transform: scale(1.08);
+}
+
+/* ---------- 9. 引用 ---------- */
+.tile--quote {
+  grid-area: quote;
+  background:
+    radial-gradient(280px 180px at 0% 100%, rgba(255, 143, 177, 0.14), transparent 70%),
+    var(--card);
+  justify-content: center;
+  gap: 8px;
+}
+
+.quote__text {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--text-soft);
+}
+
+.quote__mark {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2.4rem;
+  line-height: 0.6;
+  color: var(--accent-pink);
+  opacity: 0.5;
+  margin-bottom: 2px;
+}
+
+.quote__from {
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+/* ---------- 10. 写文章 CTA ---------- */
+.tile--cta {
+  grid-area: cta;
+  justify-content: center;
+  gap: 9px;
+  background: var(--grad-soft), var(--card);
+  border-color: rgba(139, 124, 255, 0.28);
+}
+
+.tile--cta h3 {
+  font-size: 1rem;
+}
+
+.tile--cta p {
+  font-size: 0.78rem;
+  color: var(--text-soft);
+  line-height: 1.6;
+}
+
+.tile--cta .btn {
+  align-self: flex-start;
+  margin-top: 2px;
+}
+
+/* ==========================================================================
+   响应式
+   ========================================================================== */
+@media (max-width: 1080px) {
+  .bento {
+    grid-template-areas:
+      "intro intro intro intro intro intro intro intro intro intro intro intro"
+      "clock clock clock clock clock anime anime anime anime anime anime anime"
+      "games games games games games games posts posts posts posts posts posts"
+      "now now now now quote quote quote quote social social social social"
+      "cta cta cta cta cta cta cta cta cta cta cta cta";
+  }
+}
+
+@media (max-width: 860px) {
+  .bento {
+    grid-template-areas:
+      "intro intro intro intro intro intro intro intro intro intro intro intro"
+      "clock clock clock clock clock clock clock clock clock clock clock clock"
+      "anime anime anime anime anime anime anime anime anime anime anime anime"
+      "games games games games games games games games games games games games"
+      "posts posts posts posts posts posts posts posts posts posts posts posts"
+      "now now now now now now quote quote quote quote quote quote"
+      "social social social social social social social social social social social social"
+      "cta cta cta cta cta cta cta cta cta cta cta cta";
+  }
+
+  .tile--clock {
+    min-height: 120px;
+  }
+
+  .social-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .social-link {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 6px;
+    padding: 12px 6px;
+  }
+}
+
+@media (max-width: 560px) {
+  :root {
+    --gap: 12px;
+    --radius-lg: 20px;
+  }
+
+  .bento {
+    grid-template-areas:
+      "intro intro intro intro intro intro intro intro intro intro intro intro"
+      "clock clock clock clock clock clock clock clock clock clock clock clock"
+      "anime anime anime anime anime anime anime anime anime anime anime anime"
+      "games games games games games games games games games games games games"
+      "posts posts posts posts posts posts posts posts posts posts posts posts"
+      "now now now now now now now now now now now now"
+      "quote quote quote quote quote quote quote quote quote quote quote quote"
+      "social social social social social social social social social social social social"
+      "cta cta cta cta cta cta cta cta cta cta cta cta";
+    padding-top: 16px;
+  }
+
+  .tile {
+    padding: 16px;
+  }
+
+  .tile--intro {
+    padding: 20px;
+  }
+
+  .intro__top {
+    gap: 12px;
+  }
+
+  .intro__avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+  }
+
+  .intro__bio {
+    font-size: 0.86rem;
+  }
+
+  .intro__meta {
+    font-size: 0.72rem;
+    gap: 6px 12px;
+  }
+
+  .intro__actions {
+    flex-wrap: wrap;
+  }
+
+  .intro__actions .btn {
+    flex: 1 1 calc(50% - 5px);
+    min-width: 130px;
+    padding: 9px 12px;
+    font-size: 0.82rem;
+  }
+
+  .clock {
+    gap: 10px;
+  }
+
+  .clock__meta {
+    font-size: 0.68rem;
+  }
+
+  .social-link {
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    padding: 10px 4px;
+    font-size: 0.68rem;
+  }
+
+  .social-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .post-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    row-gap: 2px;
+    column-gap: 8px;
+  }
+
+  .post-row__date {
+    grid-column: 1 / -1;
+    font-size: 0.66rem;
+  }
+}

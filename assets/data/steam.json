@@ -1,0 +1,41 @@
+{
+  "source": "steam",
+  "updatedAt": "2026-10-24T07:00:30.639Z",
+  "profile": {
+    "steamid": "76561198976660952",
+    "name": "血小板埋埋",
+    "avatar": "https://avatars.akamai.steamstatic.com/00ab2bde37dd7fbcfdffa56e93d533853c3bb09e_full.jpg",
+    "state": "online",
+    "privacy": "public",
+    "url": "https://steamcommunity.com/id/jijijitian/"
+  },
+  "games": [
+    {
+      "appid": "730",
+      "name": "Counter-Strike 2",
+      "hours": 228,
+      "lastPlayed": "2026-10-23",
+      "lastPlayedRaw": "10 月 23 日",
+      "cover": "https://cdn.akamai.steamstatic.com/steam/apps/730/library_600x900.jpg",
+      "url": "https://steamcommunity.com/app/730"
+    },
+    {
+      "appid": "629520",
+      "name": "Soundpad",
+      "hours": 22,
+      "lastPlayed": "2026-10-23",
+      "lastPlayedRaw": "10 月 23 日",
+      "cover": "https://cdn.akamai.steamstatic.com/steam/apps/629520/library_600x900.jpg",
+      "url": "https://steamcommunity.com/app/629520"
+    },
+    {
+      "appid": "4508340",
+      "name": "异环",
+      "hours": 102,
+      "lastPlayed": "2026-10-22",
+      "lastPlayedRaw": "10 月 22 日",
+      "cover": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4508340/3f98f9e28c71241a58d08d2af93c0b5abe8f773c/capsule_184x69_schinese.jpg?t=1790722094",
+      "url": "https://steamcommunity.com/app/4508340"
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+/**
+ * 站点配置 —— 只需要改这个文件，就能把整站变成你的。
+ * 所有字段都可以留空，模板会自动兜底。
+ * 改完推送即可，构建脚本读取的是同一份配置。
+ */
+window.SITE_CONFIG = {
+  /* ---------- 身份 ---------- */
+  name: "血小板埋埋", // 显示名（昵称）
+  fullName: "血小板埋埋", // 全名，页脚用
+  handle: "@jijijitian", // 社交账号
+  avatar: "assets/img/avatar.png", // 头像，可换成自己的图片
+  siteTitle: "血小板埋埋的个人门户", // 浏览器标签 / 页脚
+  description: "以个人之名，记录番剧、游戏与代码的日常门户。",
+  url: "https://jijijitian.github.io/", // 部署后的线上地址（RSS / sitemap 用）
+  lang: "zh-CN",
+  startDate: "2026-08-20", // 用于首页「建站天数」
+
+  /* ---------- 首屏 ---------- */
+  greeting: "你好，我是",
+  headline: "白天写代码，晚上追番，偶尔打游戏。",
+  bio: "这里记录我喜欢的东西：番剧、游戏、还有折腾出来的小玩意儿。喜欢 Bento Grid，因为每个格子都能装一点生活。",
+  location: "苏州 · 江苏",
+  status: "保持好奇，缓慢生长",
+  tags: ["前端", "Markdown", "番剧", "游戏", "折腾"],
+
+  /* ---------- Bangumi ---------- */
+  bangumi: {
+    // 你的 Bangumi 用户名（bgm.tv/user/ 后面的那段）
+    username: "623062",
+    nickname: "血小板埋埋",
+    // true = 浏览器实时请求 Bangumi 公开 API（数据最新，需要联网）
+    // false = 使用 assets/data/bangumi.json 里的快照（离线可用，可定时刷新）
+    live: true,
+    // 实时请求失败时自动回退到快照；快照路径
+    snapshot: "assets/data/bangumi.json",
+    // 是否隐藏 Bangumi 里标记为「里番 / R18」的收藏（公开主页建议保持 true）
+    hideAdult: true,
+    // 首页展示数量
+    animeLimit: 3,
+    // 进度条总集数的兜底值（Bangumi 接口偶尔不给总集数）
+    fallbackEpisodes: 12,
+  },
+
+  /* ---------- Steam ---------- */
+  steam: {
+    // Steam 自定义 ID（steamcommunity.com/id/ 后面那段）
+    vanity: "jijijitian",
+    profileUrl: "https://steamcommunity.com/id/jijijitian/",
+    // 首页展示最近在玩的数量
+    limit: 3,
+    // 构建脚本生成的数据快照
+    snapshot: "assets/data/steam.json",
+  },
+
+  /* ---------- 社交链接 ---------- */
+  socials: [
+    { label: "GitHub", href: "https://github.com/jijijitian", icon: "github" },
+    { label: "Bangumi", href: "https://bgm.tv/user/623062", icon: "bangumi" },
+    { label: "Steam", href: "https://steamcommunity.com/id/jijijitian/", icon: "steam" },
+    { label: "Email", href: "mailto:jihaotian0627@foxmail.com", icon: "mail" },
+    { label: "RSS", href: "feed.xml", icon: "rss" },
+  ],
+
+  /* ---------- 首页精选链接（自选 4 个） ---------- */
+  nowDoing: [
+    { title: "重构个人主页", note: "Bento Grid + 零依赖", emoji: "🛠️" },
+    { title: "补完《芙莉莲》", note: "每周一集慢慢看", emoji: "📺" },
+    { title: "通关《空洞骑士》", note: "五门进不去", emoji: "🎮" },
+  ],
+
+  /* ---------- 博客 ---------- */
+  posts: {
+    // 文章清单的路径（由构建脚本生成，一般不用改）
+    manifest: "posts/index.json",
+    basePath: "posts/",
+    perPage: 5,
+  },
+};

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>用 Markdown 写文章的完整流程 · 血小板埋埋的个人门户</title>
+    <meta name="description" content="从新建一个 .md 文件，到 GitHub Actions 自动渲染上线，整个流程只需要三次操作。" />
+    <meta name="author" content="血小板埋埋" />
+    <link rel="canonical" href="https://jijijitian.github.io/posts/hello-markdown.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="用 Markdown 写文章的完整流程 · 血小板埋埋的个人门户" />
+    <meta property="og:description" content="从新建一个 .md 文件，到 GitHub Actions 自动渲染上线，整个流程只需要三次操作。" />
+    <meta property="og:image" content="https://jijijitian.github.io/assets/img/avatar.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="../assets/img/avatar.png" type="image/png" />
+    <link rel="alternate" type="application/rss+xml" title="血小板埋埋的个人门户 · RSS" href="../feed.xml" />
+    <link rel="stylesheet" href="../assets/css/base.css" />
+    <link rel="stylesheet" href="../assets/css/gov.css" />
+    <link rel="stylesheet" href="../assets/css/article.css" />
+    <link rel="stylesheet" href="../assets/css/gov-page.css" />
+  </head>
+  <body class="page-article" data-title-lock>
+    <div class="reading-progress" id="readingProgress" aria-hidden="true"></div>
+  <div class="gsub-top">
+    <div class="wrap">
+      <span class="gsub-badge">个人网站 · 非政府官方</span>
+      <div class="gsub-toplinks">
+        <a href="../">首页</a>
+        <a href="../posts/">文章公开</a>
+        <a href="../feed.xml">RSS</a>
+        <a href="https://bgm.tv/user/623062" target="_blank" rel="noopener">Bangumi</a>
+      </div>
+    </div>
+  </div>
+  <header class="gsub-head">
+    <div class="wrap">
+      <a class="gsub-brand" href="../" aria-label="回到首页">
+        <span class="gsub-seal" aria-hidden="true">埋</span>
+        <span class="gsub-brand__text">
+          <strong>血小板埋埋的个人门户</strong>
+          <em>PERSONAL PORTAL</em>
+        </span>
+      </a>
+      <nav class="gsub-nav" aria-label="主导航">
+        <a href="../">首页</a>
+        <a href="../posts/" class="is-active">文章公开</a>
+        <a href="../#bangumi">追番记录</a>
+        <a href="../#games">游戏天地</a>
+        <a href="../#contact">互动交流</a>
+      </nav>
+    </div>
+  </header>
+
+    <main class="wrap article-layout">
+      <article class="post">
+        <nav class="breadcrumb" aria-label="面包屑">
+          <a href="../">首页</a>
+          <span>/</span>
+          <a href="./">文章</a>
+          <span>/</span>
+          <span aria-current="page">用 Markdown 写文章的完整流程</span>
+        </nav>
+
+        <header class="post__header">
+          <div class="post__tags"><span class="chip">教程</span><span class="chip">Markdown</span><span class="chip">GitHub</span></div>
+          <h1 class="post__title">用 Markdown 写文章的完整流程</h1>
+          <p class="post__summary">从新建一个 .md 文件，到 GitHub Actions 自动渲染上线，整个流程只需要三次操作。</p>
+          <div class="post__meta">
+            <time datetime="2026-10-18T12:00:00.000Z">2026 年 10 月 18 日</time>
+            <span aria-hidden="true">·</span>
+            <span>约 2 分钟</span>
+            <span aria-hidden="true">·</span>
+            <span>881 字</span>
+            
+          </div>
+        </header>
+
+        
+
+        <div class="article-layout__body">
+          <div class="prose" id="articleBody">
+<p>这是一篇示范文章。它同时验证了本站 Markdown 渲染管线支持的绝大多数语法：标题、列表、表格、代码高亮、引用、图片和任务清单。</p>
+<h2 id="三步写一篇文章"><a class="anchor" href="#三步写一篇文章" aria-hidden="true" tabindex="-1">#</a>三步写一篇文章</h2>
+<p>整个流程被刻意做得很短，不需要本地安装任何东西。</p>
+<ol>
+<li>在 <code>posts/</code> 目录新建一个 <code>.md</code> 文件，例如 <code>hello-world.md</code></li>
+<li>在文件顶部写上 front-matter（见下一节）</li>
+<li><code>git add . &amp;&amp; git commit -m &quot;new post&quot; &amp;&amp; git push</code></li>
+</ol>
+<p>推送之后，GitHub Actions 会自动：</p>
+<ul>
+<li>把 Markdown 渲染成 HTML 页面</li>
+<li>更新首页的「最近文章」和文章列表页</li>
+<li>重新生成 RSS 与 sitemap</li>
+<li>部署到 GitHub Pages</li>
+</ul>
+<blockquote>
+<p>也就是说：<strong>你只管写 Markdown，剩下的交给流水线。</strong></p>
+</blockquote>
+<h2 id="front-matter-怎么写"><a class="anchor" href="#front-matter-怎么写" aria-hidden="true" tabindex="-1">#</a>Front-matter 怎么写</h2>
+<p>文件开头用两条 <code>---</code> 包起来的部分就是 front-matter，它告诉构建脚本这篇文章的元信息：</p>
+<div class="code-block" data-lang="yaml"><pre><code class="hljs language-yaml"><span class="hljs-meta">---</span>
+<span class="hljs-attr">title:</span> <span class="hljs-string">文章标题</span>
+<span class="hljs-attr">date:</span> <span class="hljs-number">2026-10-18 </span><span class="hljs-number">21</span><span class="hljs-string">:30</span>
+<span class="hljs-attr">tags:</span> [<span class="hljs-string">教程</span>, <span class="hljs-string">Markdown</span>]
+<span class="hljs-attr">summary:</span> <span class="hljs-string">显示在列表页的一句话摘要</span>
+<span class="hljs-attr">cover:</span> <span class="hljs-string">assets/img/cover.jpg</span>
+<span class="hljs-attr">pinned:</span> <span class="hljs-literal">false</span>
+<span class="hljs-attr">draft:</span> <span class="hljs-literal">false</span>
+<span class="hljs-meta">---</span></code></pre></div>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>必填</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>title</code></td>
+<td>否</td>
+<td>不填则用文件名</td>
+</tr>
+<tr>
+<td><code>date</code></td>
+<td>推荐</td>
+<td>不填则用文件修改时间</td>
+</tr>
+<tr>
+<td><code>tags</code></td>
+<td>否</td>
+<td>数组或逗号分隔字符串</td>
+</tr>
+<tr>
+<td><code>summary</code></td>
+<td>否</td>
+<td>不填则自动截取正文前 110 字</td>
+</tr>
+<tr>
+<td><code>cover</code></td>
+<td>否</td>
+<td>文章头图</td>
+</tr>
+<tr>
+<td><code>pinned</code></td>
+<td>否</td>
+<td>置顶到列表最前</td>
+</tr>
+<tr>
+<td><code>draft</code></td>
+<td>否</td>
+<td>设为 <code>true</code> 时线上不构建</td>
+</tr>
+</tbody></table></div>
+<h2 id="代码块会自动高亮"><a class="anchor" href="#代码块会自动高亮" aria-hidden="true" tabindex="-1">#</a>代码块会自动高亮</h2>
+<div class="code-block" data-lang="js"><pre><code class="hljs language-js"><span class="hljs-comment">// 构建脚本用的是 marked + highlight.js，语法高亮在构建时完成</span>
+<span class="hljs-keyword">const</span> posts = <span class="hljs-keyword">await</span> <span class="hljs-title function_">loadPosts</span>();
+
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> post <span class="hljs-keyword">of</span> posts) {
+  <span class="hljs-keyword">await</span> fs.<span class="hljs-title function_">writeFile</span>(<span class="hljs-string">`posts/<span class="hljs-subst">${post.slug}</span>.html`</span>, <span class="hljs-title function_">articlePage</span>(post), <span class="hljs-string">&quot;utf8&quot;</span>);
+}
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`✓ 已生成 <span class="hljs-subst">${posts.length}</span> 篇文章`</span>);</code></pre></div>
+<p>也支持没有语言标注的代码块：</p>
+<div class="code-block" data-lang="text"><pre><code class="hljs language-text"><span class="hljs-variable">$ </span>git commit -m <span class="hljs-string">&quot;post: 新文章&quot;</span>
+<span class="hljs-variable">$ </span>git push</code></pre></div>
+<h2 id="列表样式"><a class="anchor" href="#列表样式" aria-hidden="true" tabindex="-1">#</a>列表样式</h2>
+<ul>
+<li>无序列表<ul>
+<li>嵌套一层</li>
+<li>再嵌套一层</li>
+</ul>
+</li>
+<li><strong>加粗</strong>、<em>斜体</em>、<del>删除线</del>、<code>行内代码</code></li>
+<li>链接：<a href="https://bgm.tv" target="_blank" rel="noopener">Bangumi</a> 会自动在新标签页打开</li>
+</ul>
+<h3 id="任务清单"><a class="anchor" href="#任务清单" aria-hidden="true" tabindex="-1">#</a>任务清单</h3>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> 搭建 Bento Grid 首页</li>
+<li><input checked="" disabled="" type="checkbox"> 接入 Bangumi 正在追番</li>
+<li><input checked="" disabled="" type="checkbox"> Markdown 自动构建</li>
+<li><input disabled="" type="checkbox"> 写更多文章</li>
+<li><input disabled="" type="checkbox"> 换一张更喜欢的头像</li>
+</ul>
+<h2 id="引用与分隔线"><a class="anchor" href="#引用与分隔线" aria-hidden="true" tabindex="-1">#</a>引用与分隔线</h2>
+<blockquote>
+<p>写博客最难的部分从来不是工具，而是坐下来敲下第一个字。</p>
+<p>所以工具应该尽可能消失。</p>
+</blockquote>
+<hr>
+<h2 id="本地预览"><a class="anchor" href="#本地预览" aria-hidden="true" tabindex="-1">#</a>本地预览</h2>
+<p>如果你想在 push 之前先看看效果，在仓库根目录运行：</p>
+<div class="code-block" data-lang="bash"><pre><code class="hljs language-bash"><span class="hljs-comment"># 构建 + 起一个本地服务器</span>
+npm run dev</code></pre></div>
+<p>Windows 上如果提示 <code>node</code> 找不到，把 Node 的安装路径加进 PATH 即可，或者直接用 GitHub Desktop 提交，让 Actions 去构建。</p>
+<h2 id="小结"><a class="anchor" href="#小结" aria-hidden="true" tabindex="-1">#</a>小结</h2>
+<p>这套方案的核心只有一个文件：<code>scripts/build.mjs</code>。它没有第三方依赖（marked 和 highlight.js 已经放在 <code>scripts/vendor/</code> 里），所以构建速度很快，也不会某天因为 npm 包更新而突然坏掉。</p>
+
+          </div>
+          <aside class="toc" aria-label="目录">
+          <p class="toc__title">本文目录</p>
+          <ol>
+            <li class="toc__item toc__item--h2"><a href="#三步写一篇文章">三步写一篇文章</a></li>
+            <li class="toc__item toc__item--h2"><a href="#front-matter-怎么写">Front matter 怎么写</a></li>
+            <li class="toc__item toc__item--h2"><a href="#代码块会自动高亮">代码块会自动高亮</a></li>
+            <li class="toc__item toc__item--h2"><a href="#列表样式">列表样式</a></li>
+            <li class="toc__item toc__item--h3"><a href="#任务清单">任务清单</a></li>
+            <li class="toc__item toc__item--h2"><a href="#引用与分隔线">引用与分隔线</a></li>
+            <li class="toc__item toc__item--h2"><a href="#本地预览">本地预览</a></li>
+            <li class="toc__item toc__item--h2"><a href="#小结">小结</a></li>
+          </ol>
+        </aside>
+        </div>
+
+        <footer class="post__footer">
+          <div class="post__tags"><span class="chip">教程</span><span class="chip">Markdown</span><span class="chip">GitHub</span></div>
+          <a class="link-more" href="./">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H6M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            返回文章列表
+          </a>
+        </footer>
+
+        
+    <nav class="post-nav" aria-label="文章导航">
+      <span></span>
+      <a class="post-nav__link post-nav__link--next" href="anime-2026-autumn.html">
+              <span class="post-nav__hint">下一篇 →</span>
+              <span class="post-nav__title">2026 秋番追番清单</span>
+            </a>
+    </nav>
+      </article>
+    </main>
+
+    <script type="application/json" id="postMeta">{"slug":"hello-markdown","title":"用 Markdown 写文章的完整流程","date":"2026-10-18T12:00:00.000Z"}</script>
+  <footer class="gsub-footer">
+    <div class="wrap">
+      <div class="gsub-footer__links">
+        <a href="../">首页</a>
+        <a href="../posts/">文章公开</a>
+        <a href="../feed.xml">RSS</a>
+        <a href="https://github.com/jijijitian" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://bgm.tv/user/623062" target="_blank" rel="noopener">Bangumi</a>
+      </div>
+      <p class="gsub-footer__note">本站为个人网站，非政府官方网站；页面版式仅为个人审美尝试，不代表任何机构。</p>
+      <p>© 2026 血小板埋埋 · 血小板埋埋的个人门户 · 由 GitHub Pages 提供托管</p>
+    </div>
+  </footer>
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/site.js"></script>
+    <script src="../assets/js/article.js"></script>
+  </body>
+</html>

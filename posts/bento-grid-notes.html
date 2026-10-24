@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>把个人主页做成一块 Bento 便当 · 血小板埋埋的个人门户</title>
+    <meta name="description" content="为什么我放弃了单栏博客，改用一张张可以自由组合的「格子」来介绍自己。" />
+    <meta name="author" content="血小板埋埋" />
+    <link rel="canonical" href="https://jijijitian.github.io/posts/bento-grid-notes.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="把个人主页做成一块 Bento 便当 · 血小板埋埋的个人门户" />
+    <meta property="og:description" content="为什么我放弃了单栏博客，改用一张张可以自由组合的「格子」来介绍自己。" />
+    <meta property="og:image" content="https://jijijitian.github.io/assets/img/avatar.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="../assets/img/avatar.png" type="image/png" />
+    <link rel="alternate" type="application/rss+xml" title="血小板埋埋的个人门户 · RSS" href="../feed.xml" />
+    <link rel="stylesheet" href="../assets/css/base.css" />
+    <link rel="stylesheet" href="../assets/css/gov.css" />
+    <link rel="stylesheet" href="../assets/css/article.css" />
+    <link rel="stylesheet" href="../assets/css/gov-page.css" />
+  </head>
+  <body class="page-article" data-title-lock>
+    <div class="reading-progress" id="readingProgress" aria-hidden="true"></div>
+  <div class="gsub-top">
+    <div class="wrap">
+      <span class="gsub-badge">个人网站 · 非政府官方</span>
+      <div class="gsub-toplinks">
+        <a href="../">首页</a>
+        <a href="../posts/">文章公开</a>
+        <a href="../feed.xml">RSS</a>
+        <a href="https://bgm.tv/user/623062" target="_blank" rel="noopener">Bangumi</a>
+      </div>
+    </div>
+  </div>
+  <header class="gsub-head">
+    <div class="wrap">
+      <a class="gsub-brand" href="../" aria-label="回到首页">
+        <span class="gsub-seal" aria-hidden="true">埋</span>
+        <span class="gsub-brand__text">
+          <strong>血小板埋埋的个人门户</strong>
+          <em>PERSONAL PORTAL</em>
+        </span>
+      </a>
+      <nav class="gsub-nav" aria-label="主导航">
+        <a href="../">首页</a>
+        <a href="../posts/" class="is-active">文章公开</a>
+        <a href="../#bangumi">追番记录</a>
+        <a href="../#games">游戏天地</a>
+        <a href="../#contact">互动交流</a>
+      </nav>
+    </div>
+  </header>
+
+    <main class="wrap article-layout">
+      <article class="post">
+        <nav class="breadcrumb" aria-label="面包屑">
+          <a href="../">首页</a>
+          <span>/</span>
+          <a href="./">文章</a>
+          <span>/</span>
+          <span aria-current="page">把个人主页做成一块 Bento 便当</span>
+        </nav>
+
+        <header class="post__header">
+          <div class="post__tags"><span class="chip">设计</span><span class="chip">前端</span></div>
+          <h1 class="post__title">把个人主页做成一块 Bento 便当</h1>
+          <p class="post__summary">为什么我放弃了单栏博客，改用一张张可以自由组合的「格子」来介绍自己。</p>
+          <div class="post__meta">
+            <time datetime="2026-09-28T12:00:00.000Z">2026 年 9 月 28 日</time>
+            <span aria-hidden="true">·</span>
+            <span>约 1 分钟</span>
+            <span aria-hidden="true">·</span>
+            <span>410 字</span>
+            
+          </div>
+        </header>
+
+        
+
+        <div class="article-layout__body">
+          <div class="prose" id="articleBody">
+<p>Bento Grid 这个词来自日式便当盒：每个格子大小不同，装的东西也不同，但合在一起刚好是一顿饭。</p>
+<h2 id="为什么是格子"><a class="anchor" href="#为什么是格子" aria-hidden="true" tabindex="-1">#</a>为什么是格子</h2>
+<p>传统的个人主页通常是一条竖线：头像、简介、链接、文章列表。信息密度低，滑三屏才能看到全部内容。</p>
+<p>而 Bento 的思路是<strong>先分格，再填内容</strong>：</p>
+<div class="code-block" data-lang="css"><pre><code class="hljs language-css"><span class="hljs-selector-class">.bento</span> {
+  <span class="hljs-attribute">display</span>: grid;
+  <span class="hljs-attribute">grid-template-columns</span>: <span class="hljs-built_in">repeat</span>(<span class="hljs-number">12</span>, <span class="hljs-built_in">minmax</span>(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>fr));
+  <span class="hljs-attribute">gap</span>: <span class="hljs-number">16px</span>;
+}
+
+<span class="hljs-selector-class">.tile--intro</span> { <span class="hljs-attribute">grid-column</span>: span <span class="hljs-number">7</span>; <span class="hljs-attribute">grid-row</span>: span <span class="hljs-number">2</span>; }
+<span class="hljs-selector-class">.tile--clock</span> { <span class="hljs-attribute">grid-column</span>: span <span class="hljs-number">5</span>; }</code></pre></div>
+<p>12 列的好处是所有常见比例（1/2、1/3、1/4、2/3）都能整除，排起来不会有缝隙。</p>
+<h2 id="形状即信息"><a class="anchor" href="#形状即信息" aria-hidden="true" tabindex="-1">#</a>形状即信息</h2>
+<ul>
+<li>大格子 = 重点内容</li>
+<li>小格子 = 补充信息</li>
+<li>横向长条 = 列表</li>
+<li>正方形 = 单一数据点（时钟、状态）</li>
+</ul>
+<p>读者在没有读到文字之前，就已经从格子的大小里读到了「什么重要」。</p>
+<h2 id="几个实现细节"><a class="anchor" href="#几个实现细节" aria-hidden="true" tabindex="-1">#</a>几个实现细节</h2>
+<h3 id="高光跟随鼠标"><a class="anchor" href="#高光跟随鼠标" aria-hidden="true" tabindex="-1">#</a>高光跟随鼠标</h3>
+<div class="code-block" data-lang="js"><pre><code class="hljs language-js">tile.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&quot;pointermove&quot;</span>, <span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> {
+  <span class="hljs-keyword">const</span> rect = tile.<span class="hljs-title function_">getBoundingClientRect</span>();
+  tile.<span class="hljs-property">style</span>.<span class="hljs-title function_">setProperty</span>(<span class="hljs-string">&quot;--mx&quot;</span>, <span class="hljs-string">`<span class="hljs-subst">${(e.clientX - rect.left) / rect.width * <span class="hljs-number">100</span>}</span>%`</span>);
+  tile.<span class="hljs-property">style</span>.<span class="hljs-title function_">setProperty</span>(<span class="hljs-string">&quot;--my&quot;</span>, <span class="hljs-string">`<span class="hljs-subst">${(e.clientY - rect.top) / rect.height * <span class="hljs-number">100</span>}</span>%`</span>);
+});</code></pre></div>
+<p>CSS 里再用一个 <code>radial-gradient</code> 把光晕画出来，成本几乎为零。</p>
+<h3 id="响应式"><a class="anchor" href="#响应式" aria-hidden="true" tabindex="-1">#</a>响应式</h3>
+<p>窄屏时所有格子都变成整行，格子之间只保留间距。这样在手机上它又变回了「一条竖线」，但保留了卡片的分隔感。</p>
+<h2 id="最后"><a class="anchor" href="#最后" aria-hidden="true" tabindex="-1">#</a>最后</h2>
+<p>好的布局应该像便当一样：每一格都装得下，合起来又刚好。如果你也想做一个，可以直接 fork 这个仓库，把配置里的名字和链接换掉就行。</p>
+
+          </div>
+          <aside class="toc" aria-label="目录">
+          <p class="toc__title">本文目录</p>
+          <ol>
+            <li class="toc__item toc__item--h2"><a href="#为什么是格子">为什么是格子</a></li>
+            <li class="toc__item toc__item--h2"><a href="#形状即信息">形状即信息</a></li>
+            <li class="toc__item toc__item--h2"><a href="#几个实现细节">几个实现细节</a></li>
+            <li class="toc__item toc__item--h3"><a href="#高光跟随鼠标">高光跟随鼠标</a></li>
+            <li class="toc__item toc__item--h3"><a href="#响应式">响应式</a></li>
+            <li class="toc__item toc__item--h2"><a href="#最后">最后</a></li>
+          </ol>
+        </aside>
+        </div>
+
+        <footer class="post__footer">
+          <div class="post__tags"><span class="chip">设计</span><span class="chip">前端</span></div>
+          <a class="link-more" href="./">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H6M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            返回文章列表
+          </a>
+        </footer>
+
+        
+    <nav class="post-nav" aria-label="文章导航">
+      <a class="post-nav__link post-nav__link--prev" href="anime-2026-autumn.html">
+              <span class="post-nav__hint">← 上一篇</span>
+              <span class="post-nav__title">2026 秋番追番清单</span>
+            </a>
+      <a class="post-nav__link post-nav__link--next" href="stardew-notes.html">
+              <span class="post-nav__hint">下一篇 →</span>
+              <span class="post-nav__title">星露谷物语新农场 100 小时</span>
+            </a>
+    </nav>
+      </article>
+    </main>
+
+    <script type="application/json" id="postMeta">{"slug":"bento-grid-notes","title":"把个人主页做成一块 Bento 便当","date":"2026-09-28T12:00:00.000Z"}</script>
+  <footer class="gsub-footer">
+    <div class="wrap">
+      <div class="gsub-footer__links">
+        <a href="../">首页</a>
+        <a href="../posts/">文章公开</a>
+        <a href="../feed.xml">RSS</a>
+        <a href="https://github.com/jijijitian" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://bgm.tv/user/623062" target="_blank" rel="noopener">Bangumi</a>
+      </div>
+      <p class="gsub-footer__note">本站为个人网站，非政府官方网站；页面版式仅为个人审美尝试，不代表任何机构。</p>
+      <p>© 2026 血小板埋埋 · 血小板埋埋的个人门户 · 由 GitHub Pages 提供托管</p>
+    </div>
+  </footer>
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/site.js"></script>
+    <script src="../assets/js/article.js"></script>
+  </body>
+</html>

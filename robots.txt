@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jijijitian.github.io/sitemap.xml
